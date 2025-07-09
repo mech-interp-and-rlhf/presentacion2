@@ -83,92 +83,86 @@
 = Infraestructura
 = Entrenamiento de Autoencoder
 = Extracción de Características
-= Para prueba despligue pages
 = Autointerpretabilidad
+
+= Prueba LOSS
+
+== Graficas 1
 
 // == SECCIÓN MODIFICADA: PRUEBAS DE LOSS CON GRÁFICO DINÁMICO
 // ===================================================================
+// Importar las librerías necesarias
+#import "@preview/cetz:0.3.2"
+#import "@preview/cetz-plot:0.1.1"
 
-= Pruebas de Loss
-
-== Graficas
-
-// -> Impotacion de las librerias necesarias
-
-#import "@preview/cetz-plot:0.1.1" // Caja especializada para graficos o diagramas.
-
-// Creacion del lienzo -- todo lo realcionado con el dibujo (grafico) debe quedar dentro.
 #cetz.canvas({
-  // Conveniencia, desempaqueta cajas de herramientas
-  // para escribir nombres de funciones mas cotos (alias).
+  // Importar los módulos al scope local
   import cetz.draw: *
   import cetz-plot: *
 
-  // -> Se le el archivo csv.
-  let raw-data = csv("data.csv") // funcion que realiza toso, abre, lee y organiza.
-  // Por lo tanto la variable guarda el resultado ordenado.
-  let data2 = csv("data2.csv")
-  let data3 = csv("data3.csv")
+  // --- Procesamiento de Datos ---
+  // Repetimos el proceso de leer y convertir para cada archivo CSV.
 
-  // -> Se convierten lo datos a una forma adecuada para graficar.
-  let plottable-data = () // es un arrreglo vacio (la clave son '()').
+  // 1. Procesar el primer archivo: datos_sensor_1.csv
+  let datos1 = csv("data.csv")
+    .slice(1)
+    .map(row => {
+      (float(row.at(0)), float(row.at(1)))
+    })
 
+  // 2. Procesar el segundo archivo: datos_sensor_2.csv
+  let datos2 = csv("data2.csv")
+    .slice(1)
+    .map(row => {
+      (float(row.at(0)), float(row.at(1)))
+    })
 
-  for row in raw-data.slice(1) {
-    // toma el raw-data y lo corta, toma solo desde el segundo elemento. (asi se omite el encabezado). En cada iteracion se almacena en row.
+  // 3. Procesar el tercer archivo: datos_sensor_3.csv
+  let datos3 = csv("data3.csv")
+    .slice(1)
+    .map(row => {
+      (float(row.at(0)), float(row.at(1)))
+    })
 
-    // Desempaqueta el primer elemtento para las x el segundo para las y y los sonvierte en flotante.
-    let x-value = float(row.at(0))
-    let y-value = float(row.at(1))
-
-    // se crea un par de tuplas y con el push se agrega este al final por iteción.
-
-    plottable-data.push((x-value, y-value))
-  } // Fin de canvas
-
-  for row in data2.slice(1) {
-    // toma el raw-data y lo corta, toma solo desde el segundo elemento. (asi se omite el encabezado). En cada iteracion se almacena en row.
-
-    // Desempaqueta el primer elemtento para las x el segundo para las y y los sonvierte en flotante.
-    let x-value = float(row.at(0))
-    let y-value = float(row.at(1))
-
-    // se crea un par de tuplas y con el push se agrega este al final por iteción.
-
-    plottable-data.push((x-value, y-value))
-  } // Fin de canvas
-
-  for row in data3.slice(1) {
-    // toma el raw-data y lo corta, toma solo desde el segundo elemento. (asi se omite el encabezado). En cada iteracion se almacena en row.
-
-    // Desempaqueta el primer elemtento para las x el segundo para las y y los sonvierte en flotante.
-    let x-value = float(row.at(0))
-    let y-value = float(row.at(1))
-
-    // se crea un par de tuplas y con el push se agrega este al final por iteción.
-
-    plottable-data.push((x-value, y-value))
-  } // Fin de canvas
-
-
-  // Creacion del grafico
-
+  // --- Creación de la Gráfica ---
+  // Usamos un solo entorno plot.plot para dibujar todo en los mismos ejes.
   plot.plot(
-    // configuracion para el marco del grafico, ejes, etiquetas, etc.
-    size: (10, 6), // alto y ancho
-    x-label: [Time (from CSV)],
-    y-label: [Measurement (from CSV)],
-    axis-style: "scientific", // eleige el estilo del grafico
+    size: (12, 7),
+    x-label: [Tiempo (s)],
+    y-label: [Valor del Sensor],
+    axis-style: "scientific",
+    // Configura la posición de la leyenda (ver manual, pág. 7)
+    legend: (9.8, 6.8),
+    legend-anchor: "north-east",
     {
-      // Funcion que realiza el dibujo real de los datos
+      // Añadimos cada conjunto de datos con una llamada a plot.add()
+
+      // Gráfica 1: Datos del sensor 1 (azul)
       plot.add(
-        plottable-data, // Se le estan dando los datos
-        mark: "o", // figura por datos
-        line: "linear", // conectar por linea recta cada punto.
-        style: (stroke: 1.5pt + blue), // tamaño y color de linea.
+        datos1,
+        mark: "o",
+        line: "linear",
+        label: [Sensor 1], // Etiqueta para la leyenda
+        style: (stroke: 1.5pt + blue),
+      )
+
+      // Gráfica 2: Datos del sensor 2 (rojo)
+      plot.add(
+        datos2,
+        mark: "square",
+        line: "linear",
+        label: [Sensor 2], // Etiqueta para la leyenda
+        style: (stroke: 1.5pt + red),
+      )
+
+      // Gráfica 3: Datos del sensor 3 (verde)
+      plot.add(
+        datos3,
+        mark: "triangle",
+        line: "linear",
+        label: [Sensor 3], // Etiqueta para la leyenda
+        style: (stroke: 1.5pt + green),
       )
     },
   )
 })
-
-
