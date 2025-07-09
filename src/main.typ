@@ -83,6 +83,7 @@
 = Infraestructura
 = Entrenamiento de Autoencoder
 = Extracción de Características
+= Para prueba despligue pages
 = Autointerpretabilidad
 
 // == SECCIÓN MODIFICADA: PRUEBAS DE LOSS CON GRÁFICO DINÁMICO
