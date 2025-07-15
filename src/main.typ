@@ -78,12 +78,44 @@
 == Índice <touying:hidden>
 #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
-= Introducción
 = Resumen
-= Infraestructura
+= Introducción
+= Infrestructura
+= Generacion de datos
+
+== ¿Qué son las activaciones?
+
+En este contexto, la activación de latentes se refiere al estudio de cómo las
+neuronas individuales o grupos de neuronas (unidades latentes) en las capas
+ocultas de un modelo de inteligencia artificial se activan en respuesta a
+diferentes entraadas, y cómo estas activaciones contribuyen al comportamiento
+general del modelo.
+
 = Entrenamiento de Autoencoder
+== Modelo de dos capas
+== Jump ReLU vs otras
+== Delta ML Loss vs L0
 = Extracción de Características
+== Loss dim vs prevalencia and histograma prevalencia
+
 = Autointerpretabilidad
+
+Los modelos que son autointerpretables están diseñados desde el principio para
+revelar la lógica de sus predicciones a través de sus propias estructuras del
+modelo. En este enfoque se distingue que aplica métodos a modelos ya
+entrenados.
+
+La interpretabilidad se integra directamente en la arquitectura y el proceso
+de entrenamiento del modelo, en lugar de ser una adición.
+A menudo se basan en estructuras sencillas, cuya lógica son fáciles de
+visualizar y comprender.
+Se busca revelar los procesos de toma de decisiones como parte de su
+operación, proporcionando explicaciones comprensibles por humanos para sus
+predicciones.
+
+== Promt
+== Paso a GPT
+== Resultados
 
 = Prueba LOSS
 
