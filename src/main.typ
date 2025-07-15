@@ -198,3 +198,36 @@ predicciones.
     },
   )
 })
+
+== Prueba Loss 2
+
+#cetz.canvas({
+  import cetz.draw: *
+  import cetz-plot: *
+
+  let datos4 = csv("data4.csv")
+    .slice(1)
+    .map(row => {
+      (float(row.at(0)), float(row.at(1)))
+    })
+
+
+  plot.plot(
+    size: (12, 7),
+    x-label: [I ],
+    y-label: [Loss],
+    axis-style: "scientific",
+    // Configura la posición de la leyenda (ver manual, pág. 7)
+    legend: (9.8, 6.8),
+    legend-anchor: "north-east",
+    {
+      plot.add(
+        datos4,
+        mark: "+",
+        line: "linear",
+        label: [Sensor 3], // Etiqueta para la leyenda
+        style: (stroke: 1.5pt + green),
+      )
+    },
+  )
+})
