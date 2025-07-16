@@ -1,7 +1,7 @@
 
 // --- Importaciones ---
 // Se mantienen tus importaciones originales
-#import "@preview/touying:0.6.1": *
+import "@preview/touying:0.6.1": *
 #import themes.university: *
 #import "@preview/cetz:0.3.2" // caja fundamental para creaer formas
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
@@ -99,6 +99,7 @@ general del modelo.
 == Loss dim vs prevalencia and histograma prevalencia
 
 = Autointerpretabilidad
+
 
 Los modelos que son autointerpretables están diseñados desde el principio para
 revelar la lógica de sus predicciones a través de sus propias estructuras del
