@@ -34,6 +34,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      #  Verificación de compilación
+      - name: Validar que el archivo Typst compila sin errores
+        run: |
+          # Intenta compilar el archivo principal sin generar salida
+          # Esto asegura que no hay errores de sintaxis o fallos antes de generar archivos reales
+          touying compile --root=src --output=/dev/null src/main.typ
+
       - name: Make build dir
         run: mkdir build
 
