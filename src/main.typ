@@ -22,7 +22,7 @@ import "@preview/touying:0.6.1": *
   config-info(
     title: [Exploración de modelos Transformers y su Interpretabilidad
       Mecanicista],
-    subtitle: [Proyecto de investigación, parte 1],
+    subtitle: [Proyecto de investigación, parte 2],
     author: [Sergio Antonio Hernández Peralta, Juan Emmanuel Cuéllar Lugo, \
       Julia López Diego, Nathael Ramos Cabrera],
     logo: box(image("Logo_de_la_UAM_no_emblema.svg", width: 36pt)),
@@ -79,8 +79,34 @@ import "@preview/touying:0.6.1": *
 #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
 = Resumen
-= Introducción
-= Infrestructura
+== Introducción
+
+== Infraestructura
+
+El desarrollo del proyecto se ha apoyado en una infraestructura híbrida que
+combina herramientas en la nube y recursos de cómputo de alto rendimiento.
+
+Entorno de desarrollo:
+
+Jupyter Notebook alojado en GitHub (Codespaces / JupyterLab).
+
+Generación de presentaciones con Typst.
+
+Cómputo para entrenamiento del modelo:
+
+Plataforma: VAST.ai
+
+GPU: NVIDIA RTX 4090 (24 GB VRAM)
+
+CPU: Multinúcleo (ej. AMD Ryzen o Intel Xeon)
+
+RAM: 64–128 GB (opcional, pero se utilizó menos)
+
+Almacenamiento: SSD NVMe
+
+Herramientas: Acceso por SSH, entornos con soporte CUDA/cuDNN y PyTorch.
+
+
 = Generacion de datos
 
 == ¿Qué son las activaciones?
@@ -101,10 +127,12 @@ general del modelo.
 = Autointerpretabilidad
 
 
+== Modelos Autointerpretables
+
+
 Los modelos que son autointerpretables están diseñados desde el principio para
 revelar la lógica de sus predicciones a través de sus propias estructuras del
-modelo. En este enfoque se distingue que aplica métodos a modelos ya
-entrenados.
+modelo. En este enfoque se distingue que aplica métodos a modelos ya entrenados.
 
 La interpretabilidad se integra directamente en la arquitectura y el proceso
 de entrenamiento del modelo, en lugar de ser una adición.
