@@ -79,7 +79,30 @@
 #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
 = Resumen
+
+== Resumen
+
+Los temas que abordamos en la primera parte del proyecto nos proporcionaron
+una base sólida para comprender en profundidad los experimentos presentados
+en esta exposición. Algunos de los más relevantes que analizamos fueron:
+
+- Formulación matemética desde las redes neuronales más simple hasta el
+  trasformer
+  // Se debe mencionar el prioceso de optimización que tambien definimos,
+  // entre otros temas reelvantes.
+- Definición y aproximaciones a la interpretabilidad mecanicista
+- SAE
+- Modelo Llama
+
+
+
 == Introducción
+
+En esta sección nos propusimos realizar una serie experimentos orientados a
+entender el funcionamiento interno de modelos de IA desde una perspectiva
+mecanicista, analizando cómo se activan y organizan sus representaciones
+internas (activaciones latentes) para interpretar patrones y decisiones
+del modelo.
 
 == Infraestructura
 
@@ -96,15 +119,15 @@ Cómputo para entrenamiento del modelo:
 
 Plataforma: VAST.ai
 
-GPU: NVIDIA RTX 4090 (24 GB VRAM)
+GPU: NVIDIA RTX 4090
 
-CPU: Multinúcleo (ej. AMD Ryzen o Intel Xeon)
+//CPU: Multinúcleo (ej. AMD Ryzen o Intel Xeon)
 
-RAM: 64–128 GB (opcional, pero se utilizó menos)
+//RAM: 64-128 GB (opcional, pero se utilizó menos)
 
-Almacenamiento: SSD NVMe
+//Almacenamiento: SSD NVMe
 
-Herramientas: Acceso por SSH, entornos con soporte CUDA/cuDNN y PyTorch.
+//Herramientas: Acceso por SSH
 
 
 = Generacion de datos
