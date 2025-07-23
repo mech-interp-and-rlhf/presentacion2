@@ -142,6 +142,16 @@ general del modelo.
 
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
+== JumpReLU SAE
+
+- Optimización con restricciones #pause
+
+- $ell_0$ #pause
+
+- Salida de el perceptrón multicapa 8 #pause
+
+- $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
+
 == Jump ReLU vs otras
 == Delta ML Loss vs L0
 = Extracción de Características
