@@ -97,14 +97,14 @@
 una base sólida para comprender en profundidad los experimentos presentados
 en esta exposición. Algunos de los más relevantes que analizamos fueron los siguientes]
 
-Temas abordades en proyecto parte 1: 
+Temas abordados en proyecto parte 1: 
 
 - Formulación matemética desde las redes neuronales más simple hasta el
-  trasformer #pause
+  trasformer 
   // Se debe mencionar el prioceso de optimización que tambien definimos,
-  // entre otros temas reelvantes.
+  // entre otros temas reelvantes. #pause
 - Definición y aproximaciones a la interpretabilidad mecanicista
-- SAE #pause
+- SAE 
 - Modelo Llama
 
 
