@@ -100,7 +100,7 @@ en esta exposición. Algunos de los más relevantes que analizamos fueron los si
 Temas abordades en proyecto parte 1: 
 
 - Formulación matemética desde las redes neuronales más simple hasta el
-  trasformer# pause
+  trasformer #pause
   // Se debe mencionar el prioceso de optimización que tambien definimos,
   // entre otros temas reelvantes.
 - Definición y aproximaciones a la interpretabilidad mecanicista
