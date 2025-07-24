@@ -112,7 +112,7 @@ Temas abordados en proyecto parte 1:
 == Introducción
 
 En esta sección nos propusimos realizar una serie experimentos orientados a
-entender el funcionamiento interno de modelos de IA desde una perspectiva
+entender el funcionamiento interno de modelos transformers desde una perspectiva
 mecanicista, analizando cómo se activan y organizan sus representaciones
 internas (activaciones latentes) para interpretar patrones y decisiones
 del modelo.
@@ -124,9 +124,11 @@ combina herramientas en la nube y recursos de cómputo de alto rendimiento.]
 
 Entorno de desarrollo:
 
+#slide(composer: (2fr, 0.7fr))[
+
 - Jupyter Notebook alojado en GitHub (Codespaces / JupyterLab).
 
-- Generación de presentaciones con Typst.
+- Generación de presentaciones con Typst. #pause
 
 Cómputo para entrenamiento del modelo:
 
@@ -135,12 +137,21 @@ Cómputo para entrenamiento del modelo:
 - GPU: NVIDIA RTX 4090
 
 //CPU: Multinúcleo (ej. AMD Ryzen o Intel Xeon)
-
 //RAM: 64-128 GB (opcional, pero se utilizó menos)
-
 //Almacenamiento: SSD NVMe
-
 //Herramientas: Acceso por SSH
+
+][
+  #figure(
+    image("Jnotebook.png", width: 80%),
+  ) <logo-vast>
+
+  #v(2em) // Espacio vertical entre las imágenes
+
+  #figure(
+    image("4090.jpg", width: 80%),
+  ) <logo-nvidia>
+]
 
 
 = Generacion de datos
