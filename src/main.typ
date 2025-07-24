@@ -119,20 +119,20 @@ del modelo.
 
 == Infraestructura
 
-El desarrollo del proyecto se ha apoyado en una infraestructura híbrida que
-combina herramientas en la nube y recursos de cómputo de alto rendimiento.
+#speaker-note[El desarrollo del proyecto se ha apoyado en una infraestructura híbrida que
+combina herramientas en la nube y recursos de cómputo de alto rendimiento.]
 
 Entorno de desarrollo:
 
-Jupyter Notebook alojado en GitHub (Codespaces / JupyterLab).
+- Jupyter Notebook alojado en GitHub (Codespaces / JupyterLab).
 
-Generación de presentaciones con Typst.
+- Generación de presentaciones con Typst.
 
 Cómputo para entrenamiento del modelo:
 
-Plataforma: VAST.ai
+- Plataforma: VAST.ai
 
-GPU: NVIDIA RTX 4090
+- GPU: NVIDIA RTX 4090
 
 //CPU: Multinúcleo (ej. AMD Ryzen o Intel Xeon)
 
