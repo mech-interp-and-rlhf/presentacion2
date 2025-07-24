@@ -75,7 +75,19 @@
 #title-slide()
 
 == Índice <touying:hidden>
-#components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
+#show outline.entry: it => block(
+  below: 3.5em,
+  it.indented(
+    it.prefix(),
+    it.body(),
+  ),
+)
+
+#components.adaptive-columns(outline(
+  title: none,
+  indent: 1em,
+  depth: 1,
+))
 
 = Resumen
 
