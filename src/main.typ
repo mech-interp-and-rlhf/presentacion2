@@ -66,7 +66,6 @@
 }
 
 // --- Vínculos de Touying con Cetz y Fletcher ---
-// ESTAS LÍNEAS SON FUNDAMENTALES Y YA LAS TENÍAS CORRECTAMENTE.
 #let cetz-canvas = touying-reducer.with(reduce: cetz.canvas, cover: cetz.draw.hide.with(bounds: true))
 #let fletcher-diagram = touying-reducer.with(reduce: fletcher.diagram, cover: fletcher.hide)
 
@@ -76,22 +75,35 @@
 #title-slide()
 
 == Índice <touying:hidden>
-#components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
+#show outline.entry: it => block(
+  below: 3.5em,
+  it.indented(
+    it.prefix(),
+    it.body(),
+  ),
+)
 
+#components.adaptive-columns(outline(
+  title: none,
+  indent: 1em,
+  depth: 1,
+))
 = Resumen
 
 == Resumen
 
-Los temas que abordamos en la primera parte del proyecto nos proporcionaron
+#speaker-note[Los temas que abordamos en la primera parte del proyecto nos proporcionaron
 una base sólida para comprender en profundidad los experimentos presentados
-en esta exposición. Algunos de los más relevantes que analizamos fueron:
+en esta exposición. Algunos de los más relevantes que analizamos fueron los siguientes]
+
+Temas abordades en proyecto parte 1: 
 
 - Formulación matemética desde las redes neuronales más simple hasta el
-  trasformer
+  trasformer# pause
   // Se debe mencionar el prioceso de optimización que tambien definimos,
   // entre otros temas reelvantes.
 - Definición y aproximaciones a la interpretabilidad mecanicista
-- SAE
+- SAE #pause
 - Modelo Llama
 
 
