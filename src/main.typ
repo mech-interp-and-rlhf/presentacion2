@@ -102,8 +102,8 @@ Temas abordados en proyecto parte 1:
 - Formulación matemética desde las redes neuronales más simple hasta el
   trasformer 
   // Se debe mencionar el prioceso de optimización que tambien definimos,
-  // entre otros temas reelvantes. #pause
-- Definición y aproximaciones a la interpretabilidad mecanicista
+  // entre otros temas reelvantes.
+- Definición y aproximaciones a la interpretabilidad mecanicista #pause
 - SAE 
 - Modelo Llama
 
