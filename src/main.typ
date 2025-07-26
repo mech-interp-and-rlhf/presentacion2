@@ -8,9 +8,8 @@
 #import fletcher.shapes: house, hexagon
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/theorion:0.3.2": *
-
+#import "@preview/cetz:0.4.1": canvas, draw
 #import draw: circle, content, line, rect
-#import cosmos.clouds: *
 
 #import cosmos.clouds: *
 #import "@preview/simpleplot:0.1.1": *
