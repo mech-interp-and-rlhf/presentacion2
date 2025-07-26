@@ -9,6 +9,9 @@
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/theorion:0.3.2": *
 
+#import draw: circle, content, line, rect
+#import cosmos.clouds: *
+
 #import cosmos.clouds: *
 #import "@preview/simpleplot:0.1.1": *
 
@@ -122,11 +125,13 @@ del modelo.
 #speaker-note[El desarrollo del proyecto se ha apoyado en una infraestructura híbrida que
 combina herramientas en la nube y recursos de cómputo de alto rendimiento.]
 
-Entorno de desarrollo:
+
 
 #slide(composer: (2fr, 0.7fr))[
 
-- Jupyter Notebook alojado en GitHub (Codespaces / JupyterLab).
+Entorno de desarrollo:
+
+- Jupyter Notebook alojado en GitHub.
 
 - Generación de presentaciones con Typst. #pause
 
@@ -156,13 +161,113 @@ Cómputo para entrenamiento del modelo:
 
 = Generacion de datos
 
-== ¿Qué son las activaciones?
+== ¿Qué es una activación?
+Una activación es el valor que produce 
+una neurona tras procesar su entrada con una función de activación.
+//Representa cuánto y cómo responde esa neurona a la información que recibe.(speaker note)
 
-En este contexto, la activación de latentes se refiere al estudio de cómo las
-neuronas individuales o grupos de neuronas (unidades latentes) en las capas
-ocultas de un modelo de inteligencia artificial se activan en respuesta a
-diferentes entraadas, y cómo estas activaciones contribuyen al comportamiento
-general del modelo.
+== ¿Qué es una activación?
+
+#slide(composer: (1fr, 1.5fr))[
+  // --- Columna Izquierda: Texto ---
+  #block(
+    inset: (top: -6em), // Bajamos un poco el texto para alinear
+    [
+      Una activación es el valor que produce 
+      una neurona tras procesar su entrada con una función de activación.
+      
+      #v(3em)
+
+    ]
+  )
+  
+  // --- Columna Derecha: Gráfico ---
+  #place(center,
+   cetz-canvas({
+    // --- FUNCIÓN AUXILIAR DEFINIDA LOCALMENTE (LA FORMA CORRECTA) ---
+    let neuron(pos, text: none, fill: white, stroke: black, radius: 0.6, name: none) = {
+      // Ahora usamos los comandos de dibujo directamente, sin prefijo.
+      circle(
+        pos,
+        radius: radius,
+        fill: fill,
+        stroke: stroke + 0.5pt,
+        name: name
+      )
+      if text != none {
+        content(pos, text, anchor: "center")
+      }
+    }
+    
+    // --- El resto del código del gráfico es el mismo ---
+    let blue = rgb("#80b2ff")
+    let gray = rgb("#ccc")
+    let red = rgb("#ff6666")
+    let dark-gray = rgb("#555")
+    
+    // Sintaxis de flecha COMPATIBLE con cetz v0.3.2
+    let arrow-style = (
+      mark: (end: (symbol: "stealth", size: 8pt, fill: dark-gray)),
+      stroke: dark-gray + 0.5pt
+    )
+
+    // Entradas
+    let input-x = -6
+    content((input-x, 2.2), text(size: 0.9em)[Entradas])
+    for i in range(3) {
+      let y-pos = 1.2 - i * 1.2
+      neuron((input-x, y-pos), text: $x_#(i+1)$, fill: blue, name: "x" + str(i+1))
+    }
+
+    // Suma Ponderada
+    let sum-pos = (-2, 0)
+    neuron(sum-pos, text: $z$, fill: gray, name: "sum-node")
+    content((rel: (0, 1.0), to: "sum-node"), text(size: 0.9em)[Suma])
+    for i in range(3) {
+      line("x" + str(i+1), "sum-node", ..arrow-style, label: (content: $w_#(i+1)$, pos: 0.5, anchor: "south"))
+    }
+     content((sum-pos.at(0), -1.8), $z = sum_(i) w_i x_i + b$, anchor: "center")
+
+    // Función de Activación (ReLU)
+    let activation-pos = (2.5, 0)
+    let box-width = 1.5; let box-height = 1.0;
+    let center-x = activation-pos.at(0); let center-y = activation-pos.at(1)
+    rect(
+      (center-x - box-width, center-y - box-height),
+      (center-x + box-width, center-y + box-height),
+      name: "activation-box", stroke: 0.5pt + luma(200)
+    )
+    line((center-x - box-width, center-y), (center-x + box-width, center-y), stroke: luma(180) + 0.4pt)
+    line((center-x, center-y - box-height), (center-x, center-y + box-height), stroke: luma(180) + 0.4pt)
+    line((center-x - box-width, center-y), (center-x, center-y), (center-x + box-width, center-y + box-height), stroke: red + 1pt)
+    content((center-x, 1.8), text(size: 0.9em)[Activación (ReLU)], anchor: "center")
+    content((center-x+ 2.5
+    , -1.8), $a = "ReLU"(z)$, anchor: "center")
+
+    // Salida
+    let output-pos = (7, 0)
+    neuron(output-pos, text: $a$, fill: red, name: "output-node", radius: 0.7)
+    content((rel: (0, 1.0), to: "output-node"), text(size: 0.9em)[Salida])
+
+    // Flechas de Proceso
+    line("sum-node", "activation-box.west", ..arrow-style)
+    line("activation-box.east", "output-node", ..arrow-style)
+  })
+)
+]
+
+== Activaciones de latentes
+¿Qué son?
+
+- Son neuronas individuales o grupos de neuronas en las capas del modelo.
+- Responden a una entrada específica.
+
+#pagebreak(weak: true)
+
+¿Qué se puede hacer con ellas?
+
+- Se analiza cómo se activan esas unidades frente a distintas entradas.
+- Comprender cómo esas activaciones afectan el comportamiento general del modelo.
 
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
