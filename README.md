@@ -8,21 +8,21 @@ dispersos.
   Versión interactiva que se visualiza en el navegador, con animaciones y
   transiciones.
 
-  [link](https://mech-interp-and-rlhf.github.io/presentacion2/)
+  [link](https://mech-interp-uam.github.io/presentacion2/)
 
 - **Diapositivas PDF**  
 
   PDF que conserva las animaciones, permitiendo seguir el flujo original de la
   presentación.
 
-  [link](https://mech-interp-and-rlhf.github.io/presentacion2/diapositivas.pdf)
+  [link](https://mech-interp-uam.github.io/presentacion2/diapositivas.pdf)
 
 - **Handout PDF**  
 
   PDF estático, sin animaciones, ideal para imprimir o revisar el contenido
   de forma directa.
 
-  [link](https://mech-interp-and-rlhf.github.io/presentacion2/handout.pdf)  
+  [link](https://mech-interp-uam.github.io/presentacion2/handout.pdf)  
 
 Estas diapositivas fueron creadas con [Typst](https://typst.app/)
 
@@ -32,16 +32,16 @@ Estas diapositivas fueron creadas con [Typst](https://typst.app/)
 Para proyectores antiguos o dispositivos que se benefician de una proporción particular, se han generado versiones 4:3
 
 ### Presentación online
-- [Formato 4:3](https://mech-interp-and-rlhf.github.io/presentacion2/4-3.html)
-- [Formato 16:9](https://mech-interp-and-rlhf.github.io/presentacion2/)
+- [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/4-3.html)
+- [Formato 16:9](https://mech-interp-uam.github.io/presentacion2/)
 
 ### Diapositivas animadas (PDF)
-- [Formato 4:3](https://mech-interp-and-rlhf.github.io/presentacion2/diapositivas-4-3.pdf)
-- [Formato 16:10](https://mech-interp-and-rlhf.github.io/presentacion2/diapositivas.pdf)
+- [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/diapositivas-4-3.pdf)
+- [Formato 16:10](https://mech-interp-uam.github.io/presentacion2/diapositivas.pdf)
 
 ### Handout estático (PDF)
-- [Formato 4:3](https://mech-interp-and-rlhf.github.io/presentacion2/handout-4-3.pdf)
-- [Formato 16:9](https://mech-interp-and-rlhf.github.io/presentacion2/handout.pdf)
+- [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/handout-4-3.pdf)
+- [Formato 16:9](https://mech-interp-uam.github.io/presentacion2/handout.pdf)
 
 
 
