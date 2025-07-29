@@ -306,6 +306,9 @@ una neurona tras procesar su entrada con una función de activación.
 
 == Gráficos prueba reconstrucción
 
+#import "@preview/cetz:0.3.2"
+#import "@preview/cetz-plot:0.1.1"
+
 #slide(align: center + horizon)[
   #cetz-canvas({
     import cetz.draw: *
@@ -358,7 +361,7 @@ una neurona tras procesar su entrada con una función de activación.
 
 == Jump ReLU vs otras
 == Delta ML Loss vs L0
-= Extracción de Características
+
 == Loss dim vs prevalencia and histograma prevalencia
 
 = Interpretabilidad
@@ -382,8 +385,6 @@ comportamiento del modelo de forma interpretable.
 // == SECCIÓN MODIFICADA: PRUEBAS DE LOSS CON GRÁFICO DINÁMICO
 // ===================================================================
 // Importar las librerías necesarias
-#import "@preview/cetz:0.3.2"
-#import "@preview/cetz-plot:0.1.1"
 
 #cetz.canvas({
   // Importar los módulos al scope local
