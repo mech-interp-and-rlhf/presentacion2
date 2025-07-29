@@ -40,6 +40,8 @@
 
 // --- Definiciones Personalizadas ---
 // Se mantienen tus definiciones personalizadas
+#let invisible(content) = box(fill: none, stroke: none, text(fill: white.transparentize(100%), content))
+
 #let palette = (
   "q": rgb("e6b800"),
   "k": blue,
@@ -70,6 +72,8 @@
 // --- Vínculos de Touying con Cetz y Fletcher ---
 #let cetz-canvas = touying-reducer.with(reduce: cetz.canvas, cover: cetz.draw.hide.with(bounds: true))
 #let fletcher-diagram = touying-reducer.with(reduce: fletcher.diagram, cover: fletcher.hide)
+
+#show raw: set text(size: 0.8em)
 
 
 // --- Contenido de la Presentación ---
@@ -276,7 +280,184 @@ una neurona tras procesar su entrada con una función de activación.
 
 - $ell_0$ #pause
 
-- Salida de el perceptrón multicapa 8 #pause
+- $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
+
+== JumpReLU
+
+#slide(repeat: 6, self => {
+  let u(n, text) = if self.subslide < n  {" " * text.len()} else {text}
+
+  let o(n, text) = if self.subslide != n {""} else {text}
+
+  let a(..alternatives) = {
+    let options = alternatives.pos()
+    if options.len() == 0 { return "" }
+
+    // Determine which alternative to show based on subslide
+    let index = calc.min(self.subslide - 1, options.len() - 1)
+    if index < 0 { index = 0 }
+
+    // Get the content to show
+    let content = options.at(index)
+
+    // Find the maximum width for layout preservation
+    let max-len = 0
+    for option in options {
+      max-len = calc.max(max-len, option.len())
+    }
+
+    // Pad content to max width with spaces if needed
+    let padding = " " * calc.max(0, max-len - content.len())
+    return content + padding
+  }
+
+  let lines = (
+    u(6, "class JumpReLU(torch.autograd.Function):"      ),
+    u(6, "    @staticmethod"                             ),
+         "    def forward(ctx, x, threshold):",
+         "        ctx.save_for_backward(x, threshold)",
+         "        return (x > threshold).float() * x",
+    o(1, "        #      ⌞▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁⌟"         )
+  +      "",
+    o(1, "        #         vector de 0s y 1s"            )
+  + u(6, "    @staticmethod"                              ),
+    o(1, "        # "                                     )
+  + u(2, "    def backward(ctx, grad_output):"            ),
+    o(1, "        # \">\" funciona elemento por elemento" )
+  + u(2, "        bandwidth = 0.001"                      ),
+    u(2, "        x, threshold = ctx.saved_tensors"       ),
+    u(3, "        jacobian_x = (x > threshold).float()"   ),
+    u(4, "        jacobian_threshold = (-threshold / bandwidth) * ("),
+    u(4, "          (abs(x - threshold) < bandwidth/2)") + u(5, " & (x > 0)") + o(5, " # <──────"),
+    u(4, "        ).float()") +            o(5, "                                      #        │"),
+    o(5, "        # evitar pre-activaciones negativas influyan threshold ─┘"),
+    u(3, "        return jacobian_x*grad_output") + u(4, ", jacobian_threshold*grad_output")
+  )
+
+  // h(1fr)
+  raw(lines.join("\n"), lang: "python")
+})
+
+== Entrenamiento
+
+```python
+def hook(grad_in):
+    # esto asume que la norma de las columnas es 1
+    # así que hay que normalizar luego de cada
+    # actualización a los parámetros
+    dot = (self.dec.weight * grad_in).sum(dim=0, keepdim=True)
+    return grad_in - dot * tensor
+
+self.dec.weight.register_hook(hook)
+```
+
+#pagebreak(weak: true)
+
+```python
+with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+    reconstrución_y_otras_salidas = model(x)
+```
+
+== Rendimiento General
+
+#align(center, block(
+  width: 80%,
+  fill: rgb("#fff3cd"),
+  inset: 0.5em,
+  radius: 0.9em,
+  stroke: 0.04em + rgb("#d4a934"),
+  [
+    Como matemático, escribes la ecuación y todas las letras están en la
+    misma línea, no hay cuello de botella de comunicación entre la $A$ y la $B$
+    que está al lado. (Josh Batson)
+  ]))
+
+#pagebreak(weak: true)
+
+
+#let performance_data = (
+  ([Kernel],     49559),
+  ([Memcpy],      2111),
+  ([Memset],         3),
+  ([Runtime],        0),
+  ([DataLoader],     0),
+  ([CPU Exec],   14955),
+  ([Other],        486),
+)
+
+#align(center)[
+#cetz-canvas({
+  let colors = gradient.linear(blue, purple, red)
+  let total = performance_data.map(el => el.at(1)).sum()
+
+  chart.piechart(
+    performance_data,
+    value-key: 1,
+    label-key: 0,
+    radius: 4,
+    slice-style: colors,
+    inner-radius: 1,
+    inner-label: (content: (value, label) => (
+      if value <= total * 0.02 {invisible(str(calc.round(value / total * 100)) + "%")} else {str(calc.round(value / total * 100)) + "%"}
+    ), radius: 110%),
+    outer-label: (content: (value, label) => (
+      if value <= total * 0.02 {invisible(label)} else {label}
+    ), radius: 140%),
+    legend: (label: none)
+  )
+})
+]
+
+== Eficiencia GPU
+#let data = (
+  // durations in μs
+  ([ADAM],                32716),
+  ([mm1],       15698),
+  ([mm2],       15477),
+  ([mm3],       15417),
+  ([mm4],       15336),
+  ([mm5],       15240),
+  ([mm6],       15230),
+  ([eltwise-mul],          5570),
+  ([vec-add],              3830),
+  ([poi-exp-gt-mul],       3827),
+  ([poi-copy],             3825),
+  ([vec-mul],              3761),
+  ([step-backward-reduce], 3699),
+  ([l2-norm-reduce],       1876),
+  ([sum-reduce],           1415),
+)
+
+#slide(repeat: 2, self => {
+  align(center)[
+    #cetz-canvas({
+      let colors = gradient.linear(red, blue, green, yellow)
+      let total = data.map(el => el.at(1)).sum()
+
+      chart.piechart(
+        data,
+        value-key: 1,
+        label-key: 0,
+        radius: 4,
+        slice-style: colors,
+        inner-radius: 1,
+        inner-label: (content: (value, label) => (
+          if value <= total * 0.05 {none} else {str(calc.round(value / total * 100)) + "%"}
+        ), radius: 110%),
+        outer-label: (content: (value, label) => (
+          if self.subslide == 1 {
+            if label == [ADAM] {label} else {invisible(label)}
+          } else {
+            if value <= total * 0.05 {invisible(label)} else {label}
+          }
+        ),
+          radius: 140%),
+        legend: (label: none)
+      )
+    })
+  ]
+})
+
 
 - $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
 
