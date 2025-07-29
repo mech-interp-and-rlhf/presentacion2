@@ -268,6 +268,29 @@ una neurona tras procesar su entrada con una función de activación.
 - Se analiza cómo se activan esas unidades frente a distintas entradas.
 - Comprender cómo esas activaciones afectan el comportamiento general del modelo.
 
+== Captura de activaciones del modelo LLaMA 3
+
+- Extraer activaciones internas (MLP-8) token por token.
+
+- Modelo: LLaMA 3.2-1B, capa 8 
+
+- Corpus: textos reales en streaming, filtrados por calidad.
+
+- Tokenización y segmentación en bloques de 4096.
+
+
+== Construcción y subida del dataset
+
+- Procesamiento por lotes → activaciones (bfloat16 → uint16).
+
+- Registro de: doc_id, token_id, pos, activación.
+
+- Shards de 50K ejemplos
+
+- RMS global calculado para normalizar activaciones.
+
+- Backup local en caso de error de subida.
+
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
 == JumpReLU SAE
@@ -280,28 +303,73 @@ una neurona tras procesar su entrada con una función de activación.
 
 - $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
 
+
+== Gráficos prueba reconstrucción
+
+#slide(align: center + horizon)[
+  #cetz-canvas({
+    import cetz.draw: *
+    import cetz-plot: *
+
+    // --- CORRECCIÓN APLICADA AQUÍ ---
+    // Leemos el nuevo archivo JSON.
+    // Como ahora es un array de arrays, accedemos a los datos por su índice con .at()
+    // Usaremos la segunda columna (índice 1) para el eje X 
+    // y la tercera columna (índice 2) para el eje Y.
+    let datos_reconstruccion = json("reconstruccion.json")
+      .map(row => (float(row.at(1)), float(row.at(2))))
+
+    plot.plot(
+      size: (15, 10),
+
+      // --- ETIQUETAS ACTUALIZADAS PARA LOS NUEVOS DATOS ---
+      x-label: text(14pt, [Columna 2]), // <- Cambia esto por un nombre descriptivo
+      y-label: text(14pt, [Columna 3]), // <- Cambia esto por un nombre descriptivo
+
+      x-format: v => text(11pt)[#v],
+      y-format: v => text(11pt)[#v],
+
+      axis-style: "scientific",
+      legend: (10.8, 9.5),
+
+      title: text(16pt, [Gráfico de Dispersión de Reconstrucción]),
+
+      {
+        plot.add(
+          // Pasamos los datos correctamente procesados
+          datos_reconstruccion,
+          
+          mark: "o",
+
+          line: (stroke: none),
+          mark-size: 0.08,
+          label: text(12pt, [Datos de Reconstrucción]), 
+
+          style: (
+            mark-style: (
+              stroke: 1.5pt + green.darken(10%)
+            ),
+          )
+        )
+      },
+    )
+  })
+]
+
 == Jump ReLU vs otras
 == Delta ML Loss vs L0
 = Extracción de Características
 == Loss dim vs prevalencia and histograma prevalencia
 
-= Autointerpretabilidad
+= Interpretabilidad
 
+== Interpretabilidad en modelos Trasformer
 
-== Modelos Autointerpretables
+Utilizamos un SAE para proyectar las activaciones internas del
+Transformer en un espacio latente disperso. Esto nos permite identificar
+direcciones latentes que influyen en tareas específicas y analizar el 
+comportamiento del modelo de forma interpretable.
 
-
-Los modelos que son autointerpretables están diseñados desde el principio para
-revelar la lógica de sus predicciones a través de sus propias estructuras del
-modelo. En este enfoque se distingue que aplica métodos a modelos ya entrenados.
-
-La interpretabilidad se integra directamente en la arquitectura y el proceso
-de entrenamiento del modelo, en lugar de ser una adición.
-A menudo se basan en estructuras sencillas, cuya lógica son fáciles de
-visualizar y comprender.
-Se busca revelar los procesos de toma de decisiones como parte de su
-operación, proporcionando explicaciones comprensibles por humanos para sus
-predicciones.
 
 == Promt
 == Paso a GPT
