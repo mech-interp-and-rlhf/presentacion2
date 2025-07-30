@@ -376,12 +376,13 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 
 
 #let performance_data = (
-  ([Kernel],     49559),
+  ([GPU],     49559),
   ([Memcpy],      2111),
   ([Memset],         3),
   ([Runtime],        0),
   ([DataLoader],     0),
-  ([CPU Exec],   14955),
+  ([CPU $->$ GPU],  14805),
+  ([CPU Other],     150),
   ([Other],        486),
 )
 
