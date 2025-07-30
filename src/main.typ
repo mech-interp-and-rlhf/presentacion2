@@ -95,7 +95,23 @@
   depth: 1,
 ))
 
-= Resumen
+
+
+= Recapitulado
+
+== Objetivos del proyecto
+
+- Comprender y aplicar los conceptos de Autoencoders Dispersos (SAE) en
+  modelos basados en transformers #pause
+
+- Desarrollar habilidades en la interpretación mecanicista de modelos de
+  lenguaje profundo #pause
+
+- Explorar y aplicar optimizaciones computacionales, que nos permiten hacer mas
+  las mismas operaciones pero más rápido #pause
+
+- Post-entrenar llama3.2 usando RLHF o DPO, y comparar autoencoders sobre
+  pre-entrenado y post-entrenado
 
 == Resumen
 
