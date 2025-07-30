@@ -309,6 +309,56 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 - Backup local en caso de error de subida.
 
+
+= Aprendizaje de diccionario
+== ¿Qué es?
+- Es La busqueda de una función mapeando una entrada a sus características
+  #pause
+
+- Si pensamos en la AI como un programa compilado, entonces el aprendizaje de
+  diccionario es una herramienta para observar y modificar las variables de un
+  programa. #pause
+
+- En otras palabras, es la transformación de las activaciones a una forma
+  interpretable y manipulable #pause
+
+- Nuestro caso: Salida del MLP 8, modelo llama 3.2 1B
+
+== Retos
+
+  - El stream residual conserva la mayoría de la información de la entrada
+    #pause
+
+  - Al entrenar modelos profundos para encontrar una representación
+    interpretable no sabes si el cómputo lo hace el llm o el modelo de
+    descompocición #pause
+    - Otello GPT
+
+
+== Objetivo
+
+Dado:
+- Hipótesis de representaciones lineales
+- Preferencia de modelos no-profundos
+- La idea que disperso $==>$ interpretable
+
+#pause
+
+el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
+de activaciones, tal que solo se necesiten pocas direciones para recontruir
+una entrada
+
+== Autoencoder Disperso
+
+- Autoencoder: aprende la función identidad bajo restricciones
+  #pause a consecuencia aprende una codificación y decodificación
+
+- Disperso: La codificación para cualquier entrada es un vector con casi todas
+  sus entradas igual a cero
+
+
+
+
 == Llama 3.2 1B
 
 - Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
@@ -320,6 +370,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
+
 == JumpReLU SAE
 
 - Optimización con restricciones #pause
