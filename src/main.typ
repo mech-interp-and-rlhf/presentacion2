@@ -99,14 +99,14 @@
 
 == Resumen
 
-#speaker-note[Los temas que abordamos en la primera parte del proyecto nos proporcionaron
+#speaker-note[Los temas que abordamos en la primera parte del proyecto proporcionaron
 una base sólida para comprender en profundidad los experimentos presentados
 en esta exposición. Algunos de los más relevantes que analizamos fueron los siguientes]
 
 Temas abordados en proyecto parte 1: 
 
 - Formulación matemética desde las redes neuronales más simple hasta el
-  trasformer 
+  transformer 
   // Se debe mencionar el prioceso de optimización que tambien definimos,
   // entre otros temas reelvantes.
 - Definición y aproximaciones a la interpretabilidad mecanicista #pause
@@ -117,7 +117,7 @@ Temas abordados en proyecto parte 1:
 
 == Introducción
 
-En esta sección nos propusimos realizar una serie experimentos orientados a
+En esta sección nos propusimos realizar una serie de experimentos orientados a
 entender el funcionamiento interno de modelos transformers desde una perspectiva
 mecanicista, analizando cómo se activan y organizan sus representaciones
 internas (activaciones latentes) para interpretar patrones y decisiones
@@ -162,11 +162,11 @@ Cómputo para entrenamiento del modelo:
 ]
 
 
-= Generacion de datos
+= Activaciones
 
 == ¿Qué es una activación?
 Una activación es el valor que produce 
-una neurona tras procesar su entrada con una función de activación.
+una neurona artificial tras procesar su entrada con una función de activación.
 //Representa cuánto y cómo responde esa neurona a la información que recibe.(speaker note)
 
 == ¿Qué es una activación?
@@ -547,7 +547,7 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 
 = Interpretabilidad
 
-== Interpretabilidad en modelos Trasformer
+== Interpretabilidad en modelos Transformer
 
 Utilizamos un SAE para proyectar las activaciones internas del
 Transformer en un espacio latente disperso. Esto nos permite identificar
