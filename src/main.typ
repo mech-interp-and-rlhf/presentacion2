@@ -241,18 +241,6 @@ Temas abordados en proyecto parte 1:
   ]
 ]
 
-== Llama 3.2 1B
-
-- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
-  destilado apartir de Llama 3.1 8B #pause
-    - Diseñado para correr hasta en celulares #pause
-
-- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
-  número de parámetros #pause
-
-- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B #pause
-  - Usando aprendizaje de diccionario
-  - Enfocándonos en el perceptrón multicapa intermedio
 
 == Introducción
 
@@ -412,18 +400,18 @@ una neurona artificial tras procesar su entrada con una función de activación.
 )
 ]
 
-== Activaciones de latentes
-¿Qué son?
+== Llama 3.2 1B
 
-- Son neuronas individuales o grupos de neuronas en las capas del modelo.
-- Responden a una entrada específica.
+- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
+  destilado apartir de Llama 3.1 8B #pause
+    - Diseñado para correr hasta en celulares #pause
 
-#pagebreak(weak: true)
+- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
+  número de parámetros #pause
 
-¿Qué se puede hacer con ellas?
-
-- Se analiza cómo se activan esas unidades frente a distintas entradas.
-- Comprender cómo esas activaciones afectan el comportamiento general del modelo.
+- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B #pause
+  - Usando aprendizaje de diccionario
+  - Enfocándonos en el perceptrón multicapa intermedio
 
 == Captura de activaciones del modelo LLaMA 3
 
