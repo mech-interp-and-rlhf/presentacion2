@@ -113,7 +113,146 @@ Temas abordados en proyecto parte 1:
 - SAE 
 - Modelo Llama
 
+== Transformer
 
+#slide(
+  repeat: 3,
+  self => align(center)[
+    #let (only, uncover, alternatives) = utils.methods(self)
+
+    #let edge-corner-radius = 10pt
+    #let branch-off-offset = edge-corner-radius*1.4
+    #let second-col-offset = 100pt
+    #let before-branch = 10pt
+    #fletcher-diagram(
+      edge-corner-radius: edge-corner-radius,
+      edge-stroke: 0.9pt,
+
+      node((0,0), name: <xl>),
+      plusnode((rel:(0pt, 117pt), to:<xl>),        name: <xlp>),
+      plusnode((rel:(0pt, 117pt), to:<xlp.north>), name: <xlpp>),
+
+      edge((rel:(0pt, -25pt), to:<xl>), <xl>, "--|>"),
+      edge(<xl>, <xlp>, "-|>",
+        label: $x^((l))$,
+        label-pos: -9pt,
+        label-side: right,
+        label-sep: 18pt,
+      ),
+      edge(
+        <xlp>,
+        <xlpp>,
+        label: $x^((l+1)) #uncover("2-", $= x^((l)) + sum_h h(x^((l))|"contexto")$)$,
+        label-side: right,
+        label-pos: -12pt,
+        label-sep: 18pt,
+        "-|>",
+      ),
+      edge(
+        <xlpp>,
+        (rel:(0pt, 25pt), to:<xlpp.north>),
+        label: $x^((l+2)) #uncover("3-", $= x^((l+1)) + m(x^((l+1)))$)$,
+        label-side: right,
+        label-pos: -10pt,
+        label-sep: 18pt,
+        "--|>",
+      ),
+
+      node(
+        enclose: (<xl>, <xlp>, <xlpp>, <mha>, <mlp>),
+        fill: green.transparentize(70%),
+        snap: false,
+        corner-radius: 10pt,
+        inset: 10pt,
+        stroke: green.darken(20%),
+      ),
+
+      {
+        let hidden = self.subslide < 2
+        node(
+          (rel:(-second-col-offset, branch-off-offset), to:<xl>),
+          name:<mha-pre>,
+        )
+        edge-hidden(
+          (<xl>, "|-", (rel:(0pt, -edge-corner-radius), to:<mha-pre>)),
+          (<xl>, "|-", <mha-pre>),
+          <mha-pre>,
+          <mha>, "-|>",
+          hidden:hidden,
+        )
+        blob(
+          (<mha-pre>, 50%, (<mha-pre>, "|-", <xlp>)),
+          [Autoatención\ multicabezal],
+          tint: orange,
+          name: <mha>,
+          hidden: hidden,
+        )
+        edge-hidden(<mha>, (<mha>, "|-", <xlp>), <xlp>, "-|>",
+          hidden: hidden,
+        )
+      },
+
+      {
+        let hidden = self.subslide < 3
+        node(
+          (rel:(-second-col-offset, branch-off-offset), to:<xlp.north>),
+          name:<mlp-pre>,
+        )
+        edge-hidden(
+          (<xlp>, "|-", (rel:(0pt, -edge-corner-radius), to: <mlp-pre>)),
+          (<xlp>, "|-", <mlp-pre>),
+          <mlp-pre>,
+          <mlp>,
+          hidden:hidden,
+          "-|>",
+        )
+        blob(
+          (<mlp-pre>, 50%, (<mlp-pre>, "|-", <xlpp>)),
+          [Perceptrón\ Multicapa],
+          tint: blue,
+          name: <mlp>,
+          hidden: hidden,
+        )
+        edge-hidden(
+          <mlp>,
+          (<mlp>, "|-", <xlpp>),
+          <xlpp>,
+          hidden: hidden,
+          "-|>",
+        )
+      },
+
+    )
+  ]
+)
+
+== Definición
+#slide(composer: (2fr, 5fr))[
+  #fletcher-diagram(
+    edge-corner-radius: 10pt,
+    edge-stroke: 0.9pt,
+    blob((0,0),  none, height:50pt, tint:green),
+    blob((0,-1), none, height:50pt, tint:green),
+  )
+][
+  #definition[
+    Un transformer consiste#super(sym.ast) en una capa de embeding, una serie
+    de bloques de transformer, y al final un $"Softmax"$
+  ]
+]
+
+== Llama 3.2 1B
+
+- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
+  destilado apartir de Llama 3.1 8B #pause
+    - Diseñado para correr hasta en celulares #pause
+
+- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
+  número de parámetros #pause
+
+- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B #pause
+  - Usando aprendizaje de diccionario
+  - Enfocándonos en el perceptrón multicapa intermedio
 
 == Introducción
 
