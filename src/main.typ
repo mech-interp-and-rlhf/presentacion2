@@ -557,7 +557,6 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 })
 
 
-
 == Gráficos prueba reconstrucción
 
 #import "@preview/cetz:0.3.2"
