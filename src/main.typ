@@ -751,8 +751,114 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   })
 ]
 
-== Jump ReLU vs otras
-== Delta ML Loss vs L0
+
+== Perdida de reconstrucción entrenamiento
+
+// ... (imports y configuración)
+
+#slide(align: center + horizon)[
+  #cetz-canvas({
+    import cetz.draw: *
+    import cetz-plot: *
+
+    let datos_reconstruccion = json("recons.json")
+      .map(row => (float(row.at(1)), float(row.at(2))))
+
+    plot.plot(
+      size: (15, 10),
+
+      title: text(16pt, [Pérdida de reconstrucción durante el entrenamiento]),
+      x-label: text(14pt, [Paso de entrenamiento]),
+      y-label: text(14pt, [Pérdida de reconstrucción]),
+      
+      // --- EJE X CON EL ÚLTIMO VALOR INCLUIDO ---
+
+      x-tick-step: none,
+      
+      // Creamos la lista de marcas: 0, 20k, ..., 240k y luego añadimos 256k.
+      x-ticks: range(0, 240001, step: 20000) + (256000,),
+
+      // El formato se encarga de convertir 256000 en "256k"
+      x-format: v => {
+        if v == 0 { return text(11pt)[0] }
+        if v > 0 { return text(11pt)[#(int(v/1000))k] }
+        return []
+      },
+      
+      y-format: v => text(11pt)[#v],
+
+      axis-style: "scientific",
+      
+      {
+        plot.add(
+          datos_reconstruccion,
+          
+          mark: none,
+          line: "linear",
+          
+          style: (
+            stroke: 1.5pt + rgb("#4C5C7A")
+          )
+        )
+      },
+    )
+  })
+]
+
+== Perdida L0
+
+// ... (imports y configuración)
+
+#slide(align: center + horizon)[
+  #cetz-canvas({
+    import cetz.draw: *
+    import cetz-plot: *
+
+    let datos_reconstruccion = json("L0.json")
+      .map(row => (float(row.at(1)), float(row.at(2))))
+
+    plot.plot(
+      size: (15, 10),
+
+      title: text(16pt, [Pérdida de reconstrucción durante el entrenamiento]),
+      x-label: text(14pt, [Paso de entrenamiento]),
+      y-label: text(14pt, [Pérdida L0]),
+      
+      // --- EJE X CON EL ÚLTIMO VALOR INCLUIDO ---
+
+      x-tick-step: none,
+      
+      // Creamos la lista de marcas: 0, 20k, ..., 240k y luego añadimos 256k.
+      x-ticks: range(0, 240001, step: 20000) + (256000,),
+
+      // El formato se encarga de convertir 256000 en "256k"
+      x-format: v => {
+        if v == 0 { return text(11pt)[0] }
+        if v > 0 { return text(11pt)[#(int(v/1000))k] }
+        return []
+      },
+      
+      y-format: v => text(11pt)[#v],
+
+      axis-style: "scientific",
+      
+      {
+        plot.add(
+          datos_reconstruccion,
+          
+          mark: "o",
+          mark-size: 0.08,
+          line: "linear",
+          
+          style: (
+            stroke: 1.5pt + rgb("#4C5C7A")
+          )
+        )
+      },
+    )
+  })
+]
+
 
 == Loss dim vs prevalencia and histograma prevalencia
 
