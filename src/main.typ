@@ -82,7 +82,7 @@
 
 == Índice <touying:hidden>
 #show outline.entry: it => block(
-  below: 3.5em,
+  below: 2.5em,
   it.indented(
     it.prefix(),
     it.body(),
