@@ -458,9 +458,6 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   ]
 })
 
-
-- $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
-
 == Jump ReLU vs otras
 == Delta ML Loss vs L0
 = Extracción de Características
