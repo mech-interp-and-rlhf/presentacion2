@@ -99,14 +99,14 @@
 
 == Resumen
 
-#speaker-note[Los temas que abordamos en la primera parte del proyecto nos proporcionaron
+#speaker-note[Los temas que abordamos en la primera parte del proyecto proporcionaron
 una base sólida para comprender en profundidad los experimentos presentados
 en esta exposición. Algunos de los más relevantes que analizamos fueron los siguientes]
 
 Temas abordados en proyecto parte 1: 
 
-- Formulación matemética desde las redes neuronales más simple hasta el
-  trasformer 
+- Formulación matemática desde las redes neuronales más simple hasta el
+  transformer 
   // Se debe mencionar el prioceso de optimización que tambien definimos,
   // entre otros temas reelvantes.
 - Definición y aproximaciones a la interpretabilidad mecanicista #pause
@@ -117,11 +117,24 @@ Temas abordados en proyecto parte 1:
 
 == Introducción
 
-En esta sección nos propusimos realizar una serie experimentos orientados a
+En esta sección nos propusimos realizar una serie de experimentos orientados a
 entender el funcionamiento interno de modelos transformers desde una perspectiva
 mecanicista, analizando cómo se activan y organizan sus representaciones
 internas (activaciones latentes) para interpretar patrones y decisiones
 del modelo.
+
+#pagebreak(weak: true)
+
+- Se siguió el procedimiento documentado en el paper "GemmaScope", pero sobre
+  llama3.2 1B: #pause
+
+  - Obtenido las salidas del perceptrón multicapa intermedio #pause
+
+  - Creando código para el autoencoder disperso #pause
+
+  - Creando código para autointerpretabilidad #pause
+
+
 
 == Infraestructura
 
@@ -162,11 +175,12 @@ Cómputo para entrenamiento del modelo:
 ]
 
 
-= Generacion de datos
+
+= Activaciones
 
 == ¿Qué es una activación?
 Una activación es el valor que produce 
-una neurona tras procesar su entrada con una función de activación.
+una neurona artificial tras procesar su entrada con una función de activación.
 //Representa cuánto y cómo responde esa neurona a la información que recibe.(speaker note)
 
 == ¿Qué es una activación?
@@ -272,8 +286,91 @@ una neurona tras procesar su entrada con una función de activación.
 - Se analiza cómo se activan esas unidades frente a distintas entradas.
 - Comprender cómo esas activaciones afectan el comportamiento general del modelo.
 
+== Captura de activaciones del modelo LLaMA 3
+
+- Extraer activaciones internas (MLP-8) token por token.
+
+- Modelo: LLaMA 3.2-1B, capa 8 
+
+- Corpus: textos reales en streaming, filtrados por calidad.
+
+- Tokenización y segmentación en bloques de 4096.
+
+
+== Construcción y subida del dataset
+
+- Procesamiento por lotes → activaciones (bfloat16 → uint16).
+
+- Registro de: doc_id, token_id, pos, activación.
+
+- Shards de 50K ejemplos
+
+- RMS global calculado para normalizar activaciones.
+
+- Backup local en caso de error de subida.
+
+
+= Aprendizaje de diccionario
+== ¿Qué es?
+- Es La busqueda de una función mapeando una entrada a sus características
+  #pause
+
+- Si pensamos en la AI como un programa compilado, entonces el aprendizaje de
+  diccionario es una herramienta para observar y modificar las variables de un
+  programa. #pause
+
+- En otras palabras, es la transformación de las activaciones a una forma
+  interpretable y manipulable #pause
+
+- Nuestro caso: Salida del MLP 8, modelo llama 3.2 1B
+
+== Retos
+
+  - El stream residual conserva la mayoría de la información de la entrada
+    #pause
+
+  - Al entrenar modelos profundos para encontrar una representación
+    interpretable no sabes si el cómputo lo hace el llm o el modelo de
+    descompocición #pause
+    - Otello GPT
+
+
+== Objetivo
+
+Dado:
+- Hipótesis de representaciones lineales
+- Preferencia de modelos no-profundos
+- La idea que disperso $==>$ interpretable
+
+#pause
+
+el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
+de activaciones, tal que solo se necesiten pocas direciones para recontruir
+una entrada
+
+== Autoencoder Disperso
+
+- Autoencoder: aprende la función identidad bajo restricciones
+  #pause a consecuencia aprende una codificación y decodificación
+
+- Disperso: La codificación para cualquier entrada es un vector con casi todas
+  sus entradas igual a cero
+
+
+
+
+== Llama 3.2 1B
+
+- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
+  destilado apartir de Llama 3.1 8B #pause
+    - Diseñado para correr hasta en celulares #pause
+
+- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
+  número de parámetros
+
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
+
 == JumpReLU SAE
 
 - Optimización con restricciones #pause
@@ -459,32 +556,77 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   ]
 })
 
+
+
+== Gráficos prueba reconstrucción
+
+#import "@preview/cetz:0.3.2"
+#import "@preview/cetz-plot:0.1.1"
+
+#slide(align: center + horizon)[
+  #cetz-canvas({
+    import cetz.draw: *
+    import cetz-plot: *
+
+    // --- CORRECCIÓN APLICADA AQUÍ ---
+    // Leemos el nuevo archivo JSON.
+    // Como ahora es un array de arrays, accedemos a los datos por su índice con .at()
+    // Usaremos la segunda columna (índice 1) para el eje X 
+    // y la tercera columna (índice 2) para el eje Y.
+    let datos_reconstruccion = json("reconstruccion.json")
+      .map(row => (float(row.at(1)), float(row.at(2))))
+
+    plot.plot(
+      size: (15, 10),
+
+      // --- ETIQUETAS ACTUALIZADAS PARA LOS NUEVOS DATOS ---
+      x-label: text(14pt, [Columna 2]), // <- Cambia esto por un nombre descriptivo
+      y-label: text(14pt, [Columna 3]), // <- Cambia esto por un nombre descriptivo
+
+      x-format: v => text(11pt)[#v],
+      y-format: v => text(11pt)[#v],
+
+      axis-style: "scientific",
+      legend: (10.8, 9.5),
+
+      title: text(16pt, [Gráfico de Dispersión de Reconstrucción]),
+
+      {
+        plot.add(
+          // Pasamos los datos correctamente procesados
+          datos_reconstruccion,
+          
+          mark: "o",
+
+          line: (stroke: none),
+          mark-size: 0.08,
+          label: text(12pt, [Datos de Reconstrucción]), 
+
+          style: (
+            mark-style: (
+              stroke: 1.5pt + green.darken(10%)
+            ),
+          )
+        )
+      },
+    )
+  })
+]
+
 == Jump ReLU vs otras
 == Delta ML Loss vs L0
-= Extracción de Características
+
 == Loss dim vs prevalencia and histograma prevalencia
 
-= Autointerpretabilidad
+= Interpretabilidad
 
+== Interpretabilidad en modelos Transformer
 
-== Modelos Autointerpretables
+Utilizamos un SAE para proyectar las activaciones internas del
+Transformer en un espacio latente disperso. Esto nos permite identificar
+direcciones latentes que influyen en tareas específicas y analizar el 
+comportamiento del modelo de forma interpretable.
 
-
-Los modelos que son autointerpretables están diseñados desde el principio para
-revelar la lógica de sus predicciones a través de sus propias estructuras del
-modelo. En este enfoque se distingue que aplica métodos a modelos ya entrenados.
-
-La interpretabilidad se integra directamente en la arquitectura y el proceso
-de entrenamiento del modelo, en lugar de ser una adición.
-A menudo se basan en estructuras sencillas, cuya lógica son fáciles de
-visualizar y comprender.
-Se busca revelar los procesos de toma de decisiones como parte de su
-operación, proporcionando explicaciones comprensibles por humanos para sus
-predicciones.
-
-== Promt
-== Paso a GPT
-== Resultados
 
 = Prueba LOSS
 
@@ -493,8 +635,6 @@ predicciones.
 // == SECCIÓN MODIFICADA: PRUEBAS DE LOSS CON GRÁFICO DINÁMICO
 // ===================================================================
 // Importar las librerías necesarias
-#import "@preview/cetz:0.3.2"
-#import "@preview/cetz-plot:0.1.1"
 
 #cetz.canvas({
   // Importar los módulos al scope local
