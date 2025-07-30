@@ -105,7 +105,7 @@ en esta exposición. Algunos de los más relevantes que analizamos fueron los si
 
 Temas abordados en proyecto parte 1: 
 
-- Formulación matemética desde las redes neuronales más simple hasta el
+- Formulación matemática desde las redes neuronales más simple hasta el
   transformer 
   // Se debe mencionar el prioceso de optimización que tambien definimos,
   // entre otros temas reelvantes.
@@ -160,6 +160,17 @@ Cómputo para entrenamiento del modelo:
     image("4090.jpg", width: 80%),
   ) <logo-nvidia>
 ]
+
+== Objetivos
+
+- Se siguirá el procedimiento documentado en el paper "GemmaScope", pero sobre
+  llama3.2 1B: #pause
+
+  - Obtenido las salidas del perceptrón multicapa intermedio #pause
+
+  - Creando código para el autoencoder disperso #pause
+
+  - Creando código para autointerpretabilidad #pause
 
 
 = Activaciones
@@ -294,6 +305,15 @@ una neurona artificial tras procesar su entrada con una función de activación.
 - RMS global calculado para normalizar activaciones.
 
 - Backup local en caso de error de subida.
+
+== Llama 3.2 1B
+
+- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
+  destilado apartir de Llama 3.1 8B #pause
+    - Diseñado para correr hasta en celulares #pause
+
+- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
+  número de parámetros
 
 = Entrenamiento de Autoencoder
 == Modelo de dos capas
@@ -482,9 +502,6 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 })
 
 
-- $ "JumpReLU" (z | theta) = z dot.circle H(z - theta) $
-
-
 == Gráficos prueba reconstrucción
 
 #import "@preview/cetz:0.3.2"
@@ -554,10 +571,6 @@ Transformer en un espacio latente disperso. Esto nos permite identificar
 direcciones latentes que influyen en tareas específicas y analizar el 
 comportamiento del modelo de forma interpretable.
 
-
-== Promt
-== Paso a GPT
-== Resultados
 
 = Prueba LOSS
 
