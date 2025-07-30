@@ -486,17 +486,6 @@ una entrada
 
 
 
-== Llama 3.2 1B
-
-- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
-  destilado apartir de Llama 3.1 8B #pause
-    - Diseñado para correr hasta en celulares #pause
-
-- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
-  número de parámetros
-
-= Entrenamiento de Autoencoder
-== Modelo de dos capas
 
 == JumpReLU SAE
 
@@ -683,64 +672,7 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   ]
 })
 
-
-== Gráficos prueba reconstrucción
-
-#import "@preview/cetz:0.3.2"
-#import "@preview/cetz-plot:0.1.1"
-
-#slide(align: center + horizon)[
-  #cetz-canvas({
-    import cetz.draw: *
-    import cetz-plot: *
-
-    // --- CORRECCIÓN APLICADA AQUÍ ---
-    // Leemos el nuevo archivo JSON.
-    // Como ahora es un array de arrays, accedemos a los datos por su índice con .at()
-    // Usaremos la segunda columna (índice 1) para el eje X 
-    // y la tercera columna (índice 2) para el eje Y.
-    let datos_reconstruccion = json("reconstruccion.json")
-      .map(row => (float(row.at(1)), float(row.at(2))))
-
-    plot.plot(
-      size: (15, 10),
-
-      // --- ETIQUETAS ACTUALIZADAS PARA LOS NUEVOS DATOS ---
-      x-label: text(14pt, [Columna 2]), // <- Cambia esto por un nombre descriptivo
-      y-label: text(14pt, [Columna 3]), // <- Cambia esto por un nombre descriptivo
-
-      x-format: v => text(11pt)[#v],
-      y-format: v => text(11pt)[#v],
-
-      axis-style: "scientific",
-      legend: (10.8, 9.5),
-
-      title: text(16pt, [Gráfico de Dispersión de Reconstrucción]),
-
-      {
-        plot.add(
-          // Pasamos los datos correctamente procesados
-          datos_reconstruccion,
-          
-          mark: "o",
-
-          line: (stroke: none),
-          mark-size: 0.08,
-          label: text(12pt, [Datos de Reconstrucción]), 
-
-          style: (
-            mark-style: (
-              stroke: 1.5pt + green.darken(10%)
-            ),
-          )
-        )
-      },
-    )
-  })
-]
-
-
-== Perdida de reconstrucción entrenamiento
+== Perdida de reconstrucción
 
 // ... (imports y configuración)
 
