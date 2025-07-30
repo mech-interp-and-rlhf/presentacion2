@@ -952,35 +952,39 @@ comportamiento del modelo de forma interpretable.
   )
 })
 
-== Prueba Loss 2
+== Configuración
 
-#cetz.canvas({
-  import cetz.draw: *
-  import cetz-plot: *
+```python
+openai.api_key = OPENAI_API_KEY
+def create_prompt(nid: int, acts_idx: np.ndarray, acts_val: np.ndarray, raw_dataset: Dataset, tokenizer_param: AutoTokenizer, doc_map: dict) -> str:
+    example_texts = []
+    context_window_size = 5 
+    for i, global_idx in enumerate(acts_idx):
+        
+        example_data = raw_dataset[int(global_idx)]
+        
+        doc_id = example_data['doc_id']
+        tok_pos = example_data['tok_pos']
+        token_id_at_pos = example_data['input_ids'].item()
+        pairs = "\n".join(example_texts)
+```
 
-  let datos4 = csv("data4.csv")
-    .slice(1)
-    .map(row => {
-      (float(row.at(0)), float(row.at(1)))
-    })
+== Generación prompt final
 
+```python
 
-  plot.plot(
-    size: (12, 7),
-    x-label: [I ],
-    y-label: [Loss],
-    axis-style: "scientific",
-    // Configura la posición de la leyenda (ver manual, pág. 7)
-    legend: (9.8, 6.8),
-    legend-anchor: "north-east",
-    {
-      plot.add(
-        datos4,
-        mark: "+",
-        line: "linear",
-        label: [Sensor 3], // Etiqueta para la leyenda
-        style: (stroke: 1.5pt + green),
-      )
-    },
-  )
-})
+    full_prompt_for_ai = textwrap.dedent(f"""
+        You are an expert analyst specialized in interpreting latent neurons of a Sparse Auto-Encoders
+        Your task is to anlyze neuron #{nid}.
+        Here are its {len(acts_val)} highest activating examples:
+        {pairs}
+
+        Based on these examples, 
+        1. *Hypothesis*:...
+        2. *Observerd PAtterns*: ...
+        3. *Illustrative Examples*:..
+        4. *Confidence*:... """)
+    return full_prompt_for_ai, pairs
+
+    ```
+
