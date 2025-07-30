@@ -123,6 +123,19 @@ mecanicista, analizando cómo se activan y organizan sus representaciones
 internas (activaciones latentes) para interpretar patrones y decisiones
 del modelo.
 
+#pagebreak(weak: true)
+
+- Se siguirá el procedimiento documentado en el paper "GemmaScope", pero sobre
+  llama3.2 1B: #pause
+
+  - Obtenido las salidas del perceptrón multicapa intermedio #pause
+
+  - Creando código para el autoencoder disperso #pause
+
+  - Creando código para autointerpretabilidad #pause
+
+
+
 == Infraestructura
 
 #speaker-note[El desarrollo del proyecto se ha apoyado en una infraestructura híbrida que
@@ -161,16 +174,6 @@ Cómputo para entrenamiento del modelo:
   ) <logo-nvidia>
 ]
 
-== Objetivos
-
-- Se siguirá el procedimiento documentado en el paper "GemmaScope", pero sobre
-  llama3.2 1B: #pause
-
-  - Obtenido las salidas del perceptrón multicapa intermedio #pause
-
-  - Creando código para el autoencoder disperso #pause
-
-  - Creando código para autointerpretabilidad #pause
 
 
 = Activaciones
