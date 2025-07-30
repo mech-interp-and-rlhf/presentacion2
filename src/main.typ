@@ -125,7 +125,7 @@ del modelo.
 
 #pagebreak(weak: true)
 
-- Se siguirá el procedimiento documentado en el paper "GemmaScope", pero sobre
+- Se siguió el procedimiento documentado en el paper "GemmaScope", pero sobre
   llama3.2 1B: #pause
 
   - Obtenido las salidas del perceptrón multicapa intermedio #pause
