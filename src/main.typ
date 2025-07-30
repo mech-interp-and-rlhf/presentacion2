@@ -485,7 +485,7 @@ una entrada
 
 
 
-
+= Entrenamiento de Autoencoder
 
 == JumpReLU SAE
 
