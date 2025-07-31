@@ -3,16 +3,19 @@
 // Se mantienen tus importaciones originales
 #import "@preview/touying:0.6.1": *
 #import themes.university: *
-#import "@preview/cetz:0.3.2" // caja fundamental para crear formas
-#import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
+// Usar cetz 4.0 ó 4.1 con cetz-plot 1.1 ó 1.2 crashea
+// lo más actual que funciona es 3.4 con 1.1
+#import "@preview/cetz:0.3.4" // caja fundamental para crear formas
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #import fletcher.shapes: house, hexagon
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/theorion:0.3.2": *
-#import "@preview/cetz:0.4.1": canvas, draw
+#import "@preview/cetz:0.3.4": canvas, draw
 #import draw: circle, content, line, rect
+#import "@preview/cetz-plot:0.1.1"
+#import "@preview/cetz-plot:0.1.1": chart
 
-#import cosmos.clouds: *
-#import "@preview/simpleplot:0.1.1": *
+#import "@preview/tiaoma:0.3.0": qrcode
 
 // --- Reglas 'show' y Configuración del Tema ---
 // Primero se configura el tema y luego se aplica la regla de Theorion
@@ -782,8 +785,6 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 == Pérdida de reconstrucción
 
 
-#import "@preview/cetz:0.3.2"
-#import "@preview/cetz-plot:0.1.1"
 
 // ... (imports y configuración)
 
