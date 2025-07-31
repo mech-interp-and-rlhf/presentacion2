@@ -786,13 +786,9 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   ]
 })
 
-== Pérdida de reconstrucción
+== Pérdidas durante el entrenamiento
 
-
-
-// ... (imports y configuración)
-
-#slide(align: center + horizon)[
+#slide(composer: (1fr, 1fr))[
   #cetz-canvas({
     import cetz.draw: *
     import cetz-plot: *
@@ -801,51 +797,45 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
       .map(row => (float(row.at(1)), float(row.at(2))))
 
     plot.plot(
-      size: (15, 10),
+      size: (10, 10),
 
-      title: text(16pt, [Pérdida de reconstrucción durante el entrenamiento]),
-      x-label: text(14pt, [Paso de entrenamiento]),
-      y-label: text(14pt, [Pérdida de reconstrucción]),
-      
+      title: text(16pt, [Reconstrucción]),
+      x-label: text(0.9em)[Paso de entrenamiento],
+      y-label: text(0.9em)[Reconstrucción],
+
       // --- EJE X CON EL ÚLTIMO VALOR INCLUIDO ---
 
       x-tick-step: none,
-      
-      // Creamos la lista de marcas: 0, 20k, ..., 240k y luego añadimos 256k.
-      x-ticks: range(0, 240001, step: 20000) + (256000,),
+
+      // Creamos la lista de marcas: 0, 80k, 160k y luego añadimos 256k.
+      x-ticks: range(0, 160001, step: 80000) + (256000,),
 
       // El formato se encarga de convertir 256000 en "256k"
       x-format: v => {
-        if v == 0 { return text(11pt)[0] }
-        if v > 0 { return text(11pt)[#(int(v/1000))k] }
+        if v == 0 { return text(1em)[0] }
+        if v > 0 { return text(1em)[#(int(v/1000))k] }
         return []
       },
-      
-      y-format: v => text(11pt)[#v],
+
+      y-format: v => text(1em)[#v],
 
       axis-style: "scientific",
-      
+
       {
         plot.add(
           datos_reconstruccion,
-          
+
           mark: none,
           line: "linear",
-          
+
           style: (
-            stroke: 1.5pt + rgb("#4C5C7A")
+            stroke: 0.1em + rgb("#4C5C7A")
           )
         )
       },
     )
   })
-]
-
-== Pérdida L0
-
-// ... (imports y configuración)
-
-#slide(align: center + horizon)[
+][
   #cetz-canvas({
     import cetz.draw: *
     import cetz-plot: *
@@ -854,40 +844,39 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
       .map(row => (float(row.at(1)), float(row.at(2))))
 
     plot.plot(
-      size: (15, 10),
+      size: (10, 10),
 
-      title: text(16pt, [Pérdida de reconstrucción durante el entrenamiento]),
-      x-label: text(14pt, [Paso de entrenamiento]),
-      y-label: text(14pt, [Pérdida L0]),
-      
+      title: text(16pt, [L0]),
+      x-label: text(0.9em)[Paso de entrenamiento],
+      y-label: text(0.9em)[L0],
+
       // --- EJE X CON EL ÚLTIMO VALOR INCLUIDO ---
 
       x-tick-step: none,
-      
-      // Creamos la lista de marcas: 0, 20k, ..., 240k y luego añadimos 256k.
-      x-ticks: range(0, 240001, step: 20000) + (256000,),
+
+      // Creamos la lista de marcas: 0, 80k, 160k y luego añadimos 256k.
+      x-ticks: range(0, 160001, step: 80000) + (256000,),
 
       // El formato se encarga de convertir 256000 en "256k"
       x-format: v => {
-        if v == 0 { return text(11pt)[0] }
-        if v > 0 { return text(11pt)[#(int(v/1000))k] }
+        if v == 0 { return text(1em)[0] }
+        if v > 0 { return text(1em)[#(int(v/1000))k] }
         return []
       },
-      
-      y-format: v => text(11pt)[#v],
+
+      y-format: v => text(1em)[#v],
 
       axis-style: "scientific",
-      
+
       {
         plot.add(
           datos_reconstruccion,
-          
-          mark: "o",
-          mark-size: 0.08,
+
+          mark: none,
           line: "linear",
-          
+
           style: (
-            stroke: 1.5pt + rgb("#4C5C7A")
+            stroke: 0.1em + rgb("#4C5C7A")
           )
         )
       },
