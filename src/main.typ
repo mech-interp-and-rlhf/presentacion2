@@ -410,16 +410,31 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 == Llama 3.2 1B
 
-- Es un modelo entrenado por Meta, de licencia openweights#super(sym.ast)
-  destilado a partir de Llama 3.1 8B
-    - Diseñado para correr hasta en celulares
+#{
+  // 1. Centrar la tabla en la página
+  set align(center)
 
-- Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
-  número de parámetros
+  // 2. Ajustar el tamaño de texto
+  show table.cell: set text(size: 22pt)
 
-- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B
-  - Usando aprendizaje de diccionario
-  - Enfocándonos en el perceptrón multicapa intermedio
+  // 3. Definir la tabla con alineación izquierda
+  table(
+    columns: 3,
+    align: left,
+    table.header[*Parámetro*][*Valor*][*Uso en el pipeline*],
+
+    [hidden_size],       [**2048**],      [Dimensión de cada activación],
+    [intermediate_size], [8192],          [Ancho del MLP (SwiGLU)],
+    [num_hidden_layers], [16],            [Profundidad total],
+    [num_attention_heads],[32 (8 K-V)], [Concurrencia de atención],
+    [torch_dtype],       [**bfloat16**],  [Menor memoria, buen rango],
+    [rope_scaling.factor],[32],           [Rango > 128 K tokens],
+    [vocab_size],        [128 256],     [ID máximo que verás en datos],
+  )
+
+  // 4. Restaurar alineación por defecto
+  set align(start)
+}
 
 == Captura de activaciones del modelo Llama 3
 
@@ -454,13 +469,84 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 ```
 
-#table(
-  columns: 4,
-  table.header[*doc_id*][*tok_pos*][*token_id*][*activacion*],
-  [0], [0], [11192], [[48545, 48675, 48015, 15893, 15783, 48325, 159...]],
-  [0], [1], [16647], [[15318, 15506, 48442, 15616, 14923, 15797, 157...]],
 
-)
+#{
+  set align(center)               // Centra la tabla
+  show table.cell: set text(size: 17pt)
+
+  table(
+    columns: 4,
+    table.header[*doc_id*][*tok_pos*][*token_id*][*activacion*],
+
+    [0], [0],  [11192], [[48545, 48675, 48015, 15893, 15783, 48325, 159…]],
+    [0], [1],  [16647], [[15318, 15506, 48442, 15616, 14923, 15797, 157…]],
+    [0], [2],  [25],    [[48377, 15745, 48356, 48455, 48513, 48359, 485…]],
+  )
+
+  set align(start)                // Restaura alineación izquierda
+}
+
+
+== Flujo de datos
+
+#{
+  // 1. Centrar todo el bloque
+  set align(center)
+
+  // 2. Ajustar tamaño de texto
+  show text: set text(size: 13pt)
+  show text: set align(center)
+
+  // 3. Texto multilineal con flechas
+  text(       "The Pile (100 000 documentos)\n↓\n
+                               Tokenizador → Secuencias de longitud 4096\n      ↓\n
+        Forward capas 0–8 (GPU de 24 GB)\n      ↓\n
+           Hook en MLP-8 → Vector en ℝ²⁰⁴⁸\n      ↓\n
+                      Vista uint16 → Aceptado por HF\n      ↓\n
+                  Shard de 50 000 filas → Hugging Face (HF)\n      ↓\n
+                        RMS global → Normalización para SAE"
+  )
+
+  // 4. Restaurar alineación por defecto
+  set align(start)
+}
+
+
+#pagebreak(weak: true)
+
+#{
+  // 1. Centrar el bloque en la página
+  set align(center)
+
+  // 2. Ajustar el tamaño del texto de las celdas a 8 pt
+  show table.cell: set text(size: 16pt)
+  // 3. Alinear el contenido de cada celda a la izquierda
+  show table.cell: set align(start)
+
+  // 4. Definir la tabla con dos columnas y sin comillas en los valores
+  table(
+    columns: 2,
+    align: (start, start),
+    table.header[*Fuente*][*Descripción breve*],
+
+    [Pile-CC],            [Versión curada de Common Crawl con textos web de alta calidad.],
+    [Wikipedia (en)],     [Enciclopedia libre en inglés con artículos revisados por la comunidad.],
+    [GitHub],             [Repositorios de código fuente y documentación técnica.],
+    [StackExchange],      [Preguntas y respuestas técnicas y académicas en múltiples áreas.],
+    [PubMed Abstracts],   [Resúmenes de artículos biomédicos y científicos.],
+    [PubMed Central],     [Repositorio de artículos completos de investigación médica.],
+    [arXiv],              [Prepublicaciones científicas en física, matemáticas, informática, etc.],
+    [USPTO],              [Patentes y solicitudes de patente del sistema estadounidense.],
+    [FreeLaw],            [Opiniones judiciales de cortes y tribunales de EE. UU.],
+    [HackerNews],         [Foro sobre tecnología, ciencia y startups.],
+    [PhilPapers],         [Artículos académicos de filosofía.],
+    [DM Mathematics],     [Documentos de matemáticas de dominio público (ej. Project Euclid, etc.)],
+  )
+
+  // 5. Restaurar alineación por defecto para el resto del documento
+  set align(start)
+}
+
 
 = Aprendizaje de diccionario
 == ¿Qué es?
