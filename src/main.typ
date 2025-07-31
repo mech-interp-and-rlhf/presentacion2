@@ -595,13 +595,15 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   fill: rgb("#fff3cd"),
   inset: 0.5em,
   radius: 0.9em,
+
   stroke: 0.04em + rgb("#d4a934"),
   [
-    Como matemático, escribes la ecuación y todas las letras están en la
+    "Como matemático, escribes la ecuación y todas las letras están en la
     misma línea, no hay cuello de botella de comunicación entre la $A$ y la $B$
-    que está al lado. (Josh Batson)
+    que está al lado."
+    
+    #align(right)[--- Josh Batson, _Scaling Interpretability_ (2024)]
   ]))
-
 #pagebreak(weak: true)
 
 
