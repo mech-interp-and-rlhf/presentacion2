@@ -978,21 +978,18 @@ def create_prompt(nid: int, acts_idx: np.ndarray, acts_val: np.ndarray, raw_data
 
 == Resultados
 
-Document Overlap: A notable number of high-activating 
-examples come from the same documents (e.g., doc_id=67640 and doc_id=180370),
-suggesting that this neuron may be tuned to specific content or styles present
-in these documents
+ Document Overlap: A notable number of high-activating examples come from the same documents  
+    (e.g., doc_id=67640 and doc_id=180370), suggesting that this neuron may be tuned to specific 
+    content or styles present in these documents.
+    #pagebreak(weak: true)
+    
+    Examples:
+    - “The overwhelming joy I felt when I received the news was indescribable.”  
+    - “Many people believe that this new policy will greatly benefit our community.”  
+    - “I can’t help but feel a sense of dread every time I think about the future.”
 
-#pagebreak(weak: true)
-
-Examples\nBased on the observed patterns, here are a few 
-hypothetical phrases or sentences where we would expect neuron 
-#28311 to activate strongly:\n\n1. \"The overwhelming joy I felt
-when I received the news was indescribable.\"\n2. \"Many people 
-believe that this new policy will greatly benefit our community.\"\n3. \"I can't help but 
-feel a sense of dread every time I think about the future.\"\n\nThese examples incorporate 
-emotional language and subjective expressions, which align with the potential themes detected 
-by neuron #28311
+    Estas frases incorporan lenguaje emocional y expresiones subjetivas, alineándose con los  
+    posibles temas detectados por la neurona #28311.
 
 = Desarrollo actual y futuro
 
