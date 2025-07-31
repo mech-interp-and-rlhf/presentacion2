@@ -805,8 +805,14 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 
 == Dim y prevalencia
 
-#align(center)[
-  #image("scatter_plot.png", width: 63%)
+#slide(composer: (9fr, 4fr))[
+  #align(center)[
+    #image("scatter_plot.png", width: 100%)
+  ]
+][
+  #align(center + horizon)[
+    $"dimencionalidad"_j \ = (norm(f_j)_2^2) / sqrt(sum_(k=1)^(d_"sae") (f_k^T f_j)^2)$
+  ]
 ]
 
 #pagebreak(weak: true)

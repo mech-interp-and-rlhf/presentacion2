@@ -14,8 +14,8 @@ plt.scatter(fractions, dimensions, alpha=0.3, s=120, c='blue', edgecolors='none'
 
 # Labels and formatting
 plt.xlabel('Prevalencia', fontsize=24)
-plt.ylabel('Dimensión de características', fontsize=24)
-plt.title('Dimensión de características vs Prevalencia', fontsize=28)
+plt.ylabel('Dimensionalidad', fontsize=24)
+plt.title('Dimensionalidad vs Prevalencia', fontsize=28)
 
 # Make tick labels bigger
 plt.xticks(fontsize=20)
