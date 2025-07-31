@@ -3,7 +3,7 @@
 // Se mantienen tus importaciones originales
 #import "@preview/touying:0.6.1": *
 #import themes.university: *
-#import "@preview/cetz:0.3.2" // caja fundamental para creaer formas
+#import "@preview/cetz:0.3.2" // caja fundamental para crear formas
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
 #import fletcher.shapes: house, hexagon
 #import "@preview/numbly:0.1.0": numbly
@@ -106,10 +106,10 @@ en esta exposición. Algunos de los más relevantes que analizamos fueron los si
 
 Temas abordados en proyecto parte 1: 
 
-- Formulación matemática desde las redes neuronales más simple hasta el
+- Formulación matemática desde las redes neuronales más simples hasta el
   transformer 
-  // Se debe mencionar el prioceso de optimización que tambien definimos,
-  // entre otros temas reelvantes.
+  // Se debe mencionar el proceso de optimización que también definimos,
+  // entre otros temas relevantes.
 - Definición y aproximaciones a la interpretabilidad mecanicista #pause
 - SAE 
 - Modelo Llama
@@ -254,9 +254,9 @@ del modelo.
 #pagebreak(weak: true)
 
 - Se siguió el procedimiento documentado en el paper "GemmaScope", pero sobre
-  llama3.2 1B: #pause
+  Llama 3.2 1B: #pause
 
-  - Obtenido las salidas del perceptrón multicapa intermedio #pause
+  - Obteniendo las salidas del perceptrón multicapa intermedio #pause
 
   - Creando código para el autoencoder disperso #pause
 
@@ -403,8 +403,8 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 == Llama 3.2 1B
 
-- Es un modelo entrenado por meta, de licencia openweights#super(sym.ast)
-  destilado apartir de Llama 3.1 8B #pause
+- Es un modelo entrenado por Meta, de licencia openweights#super(sym.ast)
+  destilado a partir de Llama 3.1 8B #pause
     - Diseñado para correr hasta en celulares #pause
 
 - Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
@@ -414,11 +414,11 @@ una neurona artificial tras procesar su entrada con una función de activación.
   - Usando aprendizaje de diccionario
   - Enfocándonos en el perceptrón multicapa intermedio
 
-== Captura de activaciones del modelo LLaMA 3
+== Captura de activaciones del modelo Llama 3
 
 - Extraer activaciones internas (MLP-8) token por token.
 
-- Modelo: LLaMA 3.2-1B, capa 8 
+- Modelo: Llama 3.2-1B, capa 8 
 
 - Corpus: textos reales en streaming, filtrados por calidad.
 
@@ -457,7 +457,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 = Aprendizaje de diccionario
 == ¿Qué es?
-- Es La busqueda de una función mapeando una entrada a sus características
+- Es la búsqueda de una función mapeando una entrada a sus características
   #pause
 
 - Si pensamos en la AI como un programa compilado, entonces el aprendizaje de
@@ -467,7 +467,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 - En otras palabras, es la transformación de las activaciones a una forma
   interpretable y manipulable #pause
 
-- Nuestro caso: Salida del MLP 8, modelo llama 3.2 1B
+- Nuestro caso: Salida del MLP 8, modelo Llama 3.2 1B
 
 == Retos
 
@@ -476,7 +476,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
   - Al entrenar modelos profundos para encontrar una representación
     interpretable no sabes si el cómputo lo hace el llm o el modelo de
-    descompocición #pause
+    descomposición #pause
     - Otello GPT
 
 
@@ -485,12 +485,12 @@ una neurona artificial tras procesar su entrada con una función de activación.
 Dado:
 - Hipótesis de representaciones lineales
 - Preferencia de modelos no-profundos
-- La idea que disperso $==>$ interpretable
+- Disperso implica interpretable
 
 #pause
 
 el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
-de activaciones, tal que solo se necesiten pocas direciones para recontruir
+de activaciones, tal que solo se necesiten pocas direciones para reconstruir
 una entrada
 
 == Autoencoder Disperso
@@ -866,13 +866,13 @@ def create_prompt(nid: int, acts_idx: np.ndarray, acts_val: np.ndarray, raw_data
 
     full_prompt_for_ai = textwrap.dedent(f"""
         You are an expert analyst specialized in interpreting latent neurons of a Sparse Auto-Encoders
-        Your task is to anlyze neuron #{nid}.
+        Your task is to analyze neuron #{nid}.
         Here are its {len(acts_val)} highest activating examples:
         {pairs}
 
         Based on these examples, 
         1. *Hypothesis*:...
-        2. *Observerd PAtterns*: ...
+        2. *Observed Patterns*: ...
         3. *Illustrative Examples*:..
         4. *Confidence*:... """)
     return full_prompt_for_ai, pairs
