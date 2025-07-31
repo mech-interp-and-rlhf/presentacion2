@@ -264,14 +264,14 @@ del modelo.
 #pagebreak(weak: true)
 
 - Se siguió el procedimiento documentado en el paper \
-  "Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2",
+  "Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2" @lieberum2024gemmascope,
   pero sobre Llama 3.2 1B:
 
   - Obteniendo las salidas del perceptrón multicapa intermedio
 
   - Creando código para el autoencoder disperso
 
-  - Creando código para autointerpretabilidad
+  - Creando código para autointerpretabilidad @templeton2024scaling
 
 
 
@@ -573,7 +573,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
     interpretable no sabes si el cómputo lo hace el llm o el modelo de
     descomposición, por lo tanto _se suelen usar modelos de pocas capas_
     - Othello GPT: representación lineal emergente interna del tablero aún
-      cuando solo se le informa de los movimientos de piezas y no el tablero.
+      cuando solo se le informa de los movimientos de piezas y no el tablero @li2023emergent @nanda2023othello.
 
 
 == Objetivo
@@ -581,7 +581,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 Dado:
 - Hipótesis de representaciones lineales
 - Preferencia de modelos no-profundos
-- Disperso implica interpretable
+- Disperso implica interpretable @elhage2022toy
 
 el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
 de activaciones, tal que solo se necesiten pocas direciones para reconstruir
@@ -688,7 +688,7 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
     misma línea, no hay cuello de botella de comunicación entre la $A$ y la $B$
     que está al lado."
     
-    #align(right)[--- Josh Batson, _Scaling Interpretability_ (2024)]
+    #align(right)[--- Josh Batson @anthropic2024scaling]
   ]))
 #pagebreak(weak: true)
 
@@ -1006,6 +1006,12 @@ def create_prompt(nid: int, acts_idx: np.ndarray, acts_val: np.ndarray, raw_data
 - Utilizar múltiples núcleos
 
 - Limpiar y refactorizar el código para optimizarlo y mejorar su legibilidad
+
+== Referencias
+
+#text(size: 0.6em)[
+  #bibliography("works.bib", style: "ieee")
+]
 
 == Más información
 
