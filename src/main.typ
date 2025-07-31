@@ -615,7 +615,11 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 
 #align(center)[
 #cetz-canvas({
-  let colors = gradient.linear(blue, purple, red)
+  let colors = gradient.linear(
+      blue.lighten(40%),
+      purple.lighten(40%),
+      red.lighten(40%),
+    )
   let total = performance_data.map(el => el.at(1)).sum()
 
   chart.piechart(
@@ -659,7 +663,12 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 #slide(repeat: 2, self => {
   align(center)[
     #cetz-canvas({
-      let colors = gradient.linear(red, blue, green, yellow)
+      let colors = gradient.linear(
+        red.lighten(30%),
+        blue.lighten(30%),
+        green.lighten(30%),
+        yellow.lighten(30%)
+      )
       let total = data.map(el => el.at(1)).sum()
 
       chart.piechart(
