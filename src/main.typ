@@ -107,130 +107,129 @@ en esta exposición. Algunos de los más relevantes que analizamos fueron los si
 Temas abordados en proyecto parte 1: 
 
 - Formulación matemática desde las redes neuronales más simples hasta el
-  transformer 
+  transformer
+
   // Se debe mencionar el proceso de optimización que también definimos,
   // entre otros temas relevantes.
-- Definición y aproximaciones a la interpretabilidad mecanicista #pause
-- SAE 
+
+- Definición y aproximaciones a la interpretabilidad mecanicista
+
+- SAE
+
 - Modelo Llama
 
 == Transformer
 
-#slide(
-  repeat: 3,
-  self => align(center)[
-    #let (only, uncover, alternatives) = utils.methods(self)
+#align(center)[
+  #let edge-corner-radius = 10pt
+  #let branch-off-offset = edge-corner-radius*1.4
+  #let second-col-offset = 100pt
+  #let before-branch = 10pt
+  #fletcher-diagram(
+    edge-corner-radius: edge-corner-radius,
+    edge-stroke: 0.9pt,
 
-    #let edge-corner-radius = 10pt
-    #let branch-off-offset = edge-corner-radius*1.4
-    #let second-col-offset = 100pt
-    #let before-branch = 10pt
-    #fletcher-diagram(
-      edge-corner-radius: edge-corner-radius,
-      edge-stroke: 0.9pt,
+    node((0,0), name: <xl>),
+    plusnode((rel:(0pt, 117pt), to:<xl>),        name: <xlp>),
+    plusnode((rel:(0pt, 117pt), to:<xlp.north>), name: <xlpp>),
 
-      node((0,0), name: <xl>),
-      plusnode((rel:(0pt, 117pt), to:<xl>),        name: <xlp>),
-      plusnode((rel:(0pt, 117pt), to:<xlp.north>), name: <xlpp>),
+    edge((rel:(0pt, -25pt), to:<xl>), <xl>, "--|>"),
+    edge(<xl>, <xlp>, "-|>",
+      label: $x^((l))$,
+      label-pos: -9pt,
+      label-side: right,
+      label-sep: 18pt,
+    ),
+    edge(
+      <xlp>,
+      <xlpp>,
+      label: $x^((l+1)) x^((l)) + sum_h h(x^((l))|"contexto")$,
+      label-side: right,
+      label-pos: -12pt,
+      label-sep: 18pt,
+      "-|>",
+    ),
+    edge(
+      <xlpp>,
+      (rel:(0pt, 25pt), to:<xlpp.north>),
+      label: $x^((l+2)) = x^((l+1)) + m(x^((l+1)))$,
+      label-side: right,
+      label-pos: -10pt,
+      label-sep: 18pt,
+      "--|>",
+    ),
 
-      edge((rel:(0pt, -25pt), to:<xl>), <xl>, "--|>"),
-      edge(<xl>, <xlp>, "-|>",
-        label: $x^((l))$,
-        label-pos: -9pt,
-        label-side: right,
-        label-sep: 18pt,
-      ),
-      edge(
-        <xlp>,
-        <xlpp>,
-        label: $x^((l+1)) #uncover("2-", $= x^((l)) + sum_h h(x^((l))|"contexto")$)$,
-        label-side: right,
-        label-pos: -12pt,
-        label-sep: 18pt,
-        "-|>",
-      ),
-      edge(
-        <xlpp>,
-        (rel:(0pt, 25pt), to:<xlpp.north>),
-        label: $x^((l+2)) #uncover("3-", $= x^((l+1)) + m(x^((l+1)))$)$,
-        label-side: right,
-        label-pos: -10pt,
-        label-sep: 18pt,
-        "--|>",
-      ),
+    node(
+      enclose: (<xl>, <xlp>, <xlpp>, <mha>, <mlp>),
+      fill: green.transparentize(70%),
+      snap: false,
+      corner-radius: 10pt,
+      inset: 10pt,
+      stroke: green.darken(20%),
+    ),
 
+    {
+      let hidden = false
       node(
-        enclose: (<xl>, <xlp>, <xlpp>, <mha>, <mlp>),
-        fill: green.transparentize(70%),
-        snap: false,
-        corner-radius: 10pt,
-        inset: 10pt,
-        stroke: green.darken(20%),
-      ),
+        (rel:(-second-col-offset, branch-off-offset), to:<xl>),
+        name:<mha-pre>,
+      )
+      edge-hidden(
+        (<xl>, "|-", (rel:(0pt, -edge-corner-radius), to:<mha-pre>)),
+        (<xl>, "|-", <mha-pre>),
+        <mha-pre>,
+        <mha>, "-|>",
+        hidden:hidden,
+      )
+      blob(
+        (<mha-pre>, 50%, (<mha-pre>, "|-", <xlp>)),
+        [Autoatención\ multicabezal],
+        tint: orange,
+        name: <mha>,
+        hidden: hidden,
+      )
+      edge-hidden(<mha>, (<mha>, "|-", <xlp>), <xlp>, "-|>",
+        hidden: hidden,
+      )
+    },
 
-      {
-        let hidden = self.subslide < 2
-        node(
-          (rel:(-second-col-offset, branch-off-offset), to:<xl>),
-          name:<mha-pre>,
-        )
-        edge-hidden(
-          (<xl>, "|-", (rel:(0pt, -edge-corner-radius), to:<mha-pre>)),
-          (<xl>, "|-", <mha-pre>),
-          <mha-pre>,
-          <mha>, "-|>",
-          hidden:hidden,
-        )
-        blob(
-          (<mha-pre>, 50%, (<mha-pre>, "|-", <xlp>)),
-          [Autoatención\ multicabezal],
-          tint: orange,
-          name: <mha>,
-          hidden: hidden,
-        )
-        edge-hidden(<mha>, (<mha>, "|-", <xlp>), <xlp>, "-|>",
-          hidden: hidden,
-        )
-      },
+    {
+      let hidden = false
+      node(
+        (rel:(-second-col-offset, branch-off-offset), to:<xlp.north>),
+        name:<mlp-pre>,
+      )
+      edge-hidden(
+        (<xlp>, "|-", (rel:(0pt, -edge-corner-radius), to: <mlp-pre>)),
+        (<xlp>, "|-", <mlp-pre>),
+        <mlp-pre>,
+        <mlp>,
+        hidden:hidden,
+        "-|>",
+      )
+      blob(
+        (<mlp-pre>, 50%, (<mlp-pre>, "|-", <xlpp>)),
+        [Perceptrón\ Multicapa],
+        tint: blue,
+        name: <mlp>,
+        hidden: hidden,
+      )
+      edge-hidden(
+        <mlp>,
+        (<mlp>, "|-", <xlpp>),
+        <xlpp>,
+        hidden: hidden,
+        "-|>",
+      )
+    },
 
-      {
-        let hidden = self.subslide < 3
-        node(
-          (rel:(-second-col-offset, branch-off-offset), to:<xlp.north>),
-          name:<mlp-pre>,
-        )
-        edge-hidden(
-          (<xlp>, "|-", (rel:(0pt, -edge-corner-radius), to: <mlp-pre>)),
-          (<xlp>, "|-", <mlp-pre>),
-          <mlp-pre>,
-          <mlp>,
-          hidden:hidden,
-          "-|>",
-        )
-        blob(
-          (<mlp-pre>, 50%, (<mlp-pre>, "|-", <xlpp>)),
-          [Perceptrón\ Multicapa],
-          tint: blue,
-          name: <mlp>,
-          hidden: hidden,
-        )
-        edge-hidden(
-          <mlp>,
-          (<mlp>, "|-", <xlpp>),
-          <xlpp>,
-          hidden: hidden,
-          "-|>",
-        )
-      },
-
-    )
-  ]
-)
+  )
+]
 
 == Autoencoder Disperso
 
 - Autoencoder: aprende la función identidad bajo restricciones
-  #pause a consecuencia aprende una codificación y decodificación
+  a consecuencia aprende una codificación y decodificación
 
 - Disperso: La codificación para cualquier entrada es un vector con casi todas
   sus entradas igual a cero
@@ -262,13 +261,13 @@ del modelo.
 #pagebreak(weak: true)
 
 - Se siguió el procedimiento documentado en el paper "GemmaScope", pero sobre
-  Llama 3.2 1B: #pause
+  Llama 3.2 1B:
 
-  - Obteniendo las salidas del perceptrón multicapa intermedio #pause
+  - Obteniendo las salidas del perceptrón multicapa intermedio
 
-  - Creando código para el autoencoder disperso #pause
+  - Creando código para el autoencoder disperso
 
-  - Creando código para autointerpretabilidad #pause
+  - Creando código para autointerpretabilidad
 
 
 
@@ -285,7 +284,7 @@ Entorno de desarrollo:
 
 - Jupyter Notebook alojado en GitHub.
 
-- Generación de presentaciones con Typst. #pause
+- Generación de presentaciones con Typst.
 
 Cómputo para entrenamiento del modelo:
 
@@ -412,13 +411,13 @@ una neurona artificial tras procesar su entrada con una función de activación.
 == Llama 3.2 1B
 
 - Es un modelo entrenado por Meta, de licencia openweights#super(sym.ast)
-  destilado a partir de Llama 3.1 8B #pause
-    - Diseñado para correr hasta en celulares #pause
+  destilado a partir de Llama 3.1 8B
+    - Diseñado para correr hasta en celulares
 
 - Llama 3.1 8B asume un alto costo de entrenamiento como contraparte de su bajo
-  número de parámetros #pause
+  número de parámetros
 
-- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B #pause
+- Nuestro proyecto busca entender los mecanismos internos de Llama 3.2 1B
   - Usando aprendizaje de diccionario
   - Enfocándonos en el perceptrón multicapa intermedio
 
@@ -466,25 +465,23 @@ una neurona artificial tras procesar su entrada con una función de activación.
 = Aprendizaje de diccionario
 == ¿Qué es?
 - Es la búsqueda de una función mapeando una entrada a sus características
-  #pause
 
 - Si pensamos en la AI como un programa compilado, entonces el aprendizaje de
   diccionario es una herramienta para observar y modificar las variables de un
-  programa. #pause
+  programa.
 
 - En otras palabras, es la transformación de las activaciones a una forma
-  interpretable y manipulable #pause
+  interpretable y manipulable
 
 - Nuestro caso: Salida del MLP 8, modelo Llama 3.2 1B
 
 == Retos
 
   - El stream residual conserva la mayoría de la información de la entrada
-    #pause
 
   - Al entrenar modelos profundos para encontrar una representación
     interpretable no sabes si el cómputo lo hace el llm o el modelo de
-    descomposición #pause
+    descomposición
     - Otello GPT
 
 
@@ -494,8 +491,6 @@ Dado:
 - Hipótesis de representaciones lineales
 - Preferencia de modelos no-profundos
 - Disperso implica interpretable
-
-#pause
 
 el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
 de activaciones, tal que solo se necesiten pocas direciones para reconstruir
