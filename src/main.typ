@@ -241,7 +241,7 @@ Temas abordados en proyecto parte 1:
 ][
   #definition[
     Un transformer consiste#super(sym.ast) en una capa de embeding, una serie
-    de bloques de atención y procesamiento, y una capa de salida que se ajustada a la tarea.
+    de bloques de atención y procesamiento, y una capa de salida que se ajusta a la tarea.
   ]
 ]
 
@@ -465,7 +465,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 == Datos generados
 
-```pyhton
+```python
   "doc_id": int,       # ID del documento original en The Pile
   "tok_pos": int,      # posición del token dentro del documento
   "token_id": int,     # ID del token (según el tokenizer de LLaMA)
@@ -571,8 +571,9 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
   - Al entrenar modelos profundos para encontrar una representación
     interpretable no sabes si el cómputo lo hace el llm o el modelo de
-    descomposición, por lo tanto _se suele usar modelos de pocas capas_
-    - Othello GPT: representación lineal emergente interna del tablero aun cuando solo se le informa de los movimientos de piezas y no el tablero.
+    descomposición, por lo tanto _se suelen usar modelos de pocas capas_
+    - Othello GPT: representación lineal emergente interna del tablero aún
+      cuando solo se le informa de los movimientos de piezas y no el tablero.
 
 
 == Objetivo
