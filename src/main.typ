@@ -481,8 +481,8 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
   - Al entrenar modelos profundos para encontrar una representación
     interpretable no sabes si el cómputo lo hace el llm o el modelo de
-    descomposición
-    - Otello GPT
+    descomposición, por lo tanto _se suele usar modelos de pocas capas_
+    - Othello GPT: representación lineal emergente interna del tablero aun cuando solo se le informa de los movimientos de piezas y no el tablero.
 
 
 == Objetivo
