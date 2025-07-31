@@ -436,6 +436,23 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 - Backup local en caso de error de subida.
 
+== Datos generados
+
+```pyhton
+  "doc_id": int,       # ID del documento original en The Pile
+  "tok_pos": int,      # posición del token dentro del documento
+  "token_id": int,     # ID del token (según el tokenizer de LLaMA)
+  "activacion": [uint16] # vector de activaciones MLP-8 (codificado)
+
+```
+
+#table(
+  columns: 4,
+  table.header[*doc_id*][*tok_pos*][*token_id*][*activacion*],
+  [0], [0], [11192], [[48545, 48675, 48015, 15893, 15783, 48325, 159...]],
+  [0], [1], [16647], [[15318, 15506, 48442, 15616, 14923, 15797, 157...]],
+
+)
 
 = Aprendizaje de diccionario
 == ¿Qué es?
@@ -672,7 +689,7 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   ]
 })
 
-== Perdida de reconstrucción
+== Pérdida de reconstrucción
 
 
 #import "@preview/cetz:0.3.2"
@@ -729,7 +746,7 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
   })
 ]
 
-== Perdida L0
+== Pérdida L0
 
 // ... (imports y configuración)
 
