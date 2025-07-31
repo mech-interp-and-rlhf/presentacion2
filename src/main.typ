@@ -22,11 +22,12 @@
   config-common(handout: sys.inputs.at("handout", default: "false") == "true"),
   config-common(frozen-counters: (theorem-counter,)),
   config-info(
-    title: [Exploración de modelos Transformers y su Interpretabilidad
+    title: text(size:0.9em)[Exploración de modelos Transformers y su Interpretabilidad
       Mecanicista],
     subtitle: [Proyecto de investigación, parte 2],
     author: [Sergio Antonio Hernández Peralta, Juan Emmanuel Cuéllar Lugo, \
-      Julia López Diego, Nathael Ramos Cabrera],
+      Julia López Diego, Nathael Ramos Cabrera \
+      Asesores: Oscar Yañes Suares, Nuñes Antonio Gabriel],
     logo: box(image("Logo_de_la_UAM_no_emblema.svg", width: 36pt)),
   ),
   footer-a: [Sergio, Juan, Julia, Nathael],
