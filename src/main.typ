@@ -22,11 +22,12 @@
   config-common(handout: sys.inputs.at("handout", default: "false") == "true"),
   config-common(frozen-counters: (theorem-counter,)),
   config-info(
-    title: [Exploración de modelos Transformers y su Interpretabilidad
+    title: text(size:0.9em)[Exploración de modelos Transformers y su Interpretabilidad
       Mecanicista],
     subtitle: [Proyecto de investigación, parte 2],
     author: [Sergio Antonio Hernández Peralta, Juan Emmanuel Cuéllar Lugo, \
-      Julia López Diego, Nathael Ramos Cabrera],
+      Julia López Diego, Nathael Ramos Cabrera \
+      Asesores: Oscar Yañes Suares, Nuñes Antonio Gabriel],
     logo: box(image("Logo_de_la_UAM_no_emblema.svg", width: 36pt)),
   ),
   footer-a: [Sergio, Juan, Julia, Nathael],
@@ -236,8 +237,8 @@ Temas abordados en proyecto parte 1:
   )
 ][
   #definition[
-    Un transformer consiste#super(sym.ast) en una capa de embedding, una serie
-    de bloques de transformer, y al final un $"Softmax"$
+    Un transformer consiste#super(sym.ast) en una capa de embeding, una serie
+    de bloques de atención y procesamiento, y una capa de salida que se ajustada a la tarea.
   ]
 ]
 
@@ -436,6 +437,23 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 - Backup local en caso de error de subida.
 
+== Datos generados
+
+```pyhton
+  "doc_id": int,       # ID del documento original en The Pile
+  "tok_pos": int,      # posición del token dentro del documento
+  "token_id": int,     # ID del token (según el tokenizer de LLaMA)
+  "activacion": [uint16] # vector de activaciones MLP-8 (codificado)
+
+```
+
+#table(
+  columns: 4,
+  table.header[*doc_id*][*tok_pos*][*token_id*][*activacion*],
+  [0], [0], [11192], [[48545, 48675, 48015, 15893, 15783, 48325, 159...]],
+  [0], [1], [16647], [[15318, 15506, 48442, 15616, 14923, 15797, 157...]],
+
+)
 
 = Aprendizaje de diccionario
 == ¿Qué es?
@@ -784,7 +802,36 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 ]
 
 
-== Loss dim vs prevalencia and histograma prevalencia
+== Dim y prevalencia
+
+#align(center)[
+  #image("scatter_plot.png", width: 63%)
+]
+
+#pagebreak(weak: true)
+
+== Histograma de prevalencia
+
+#let histogram_csv = csv("histogram_data.csv")
+#let histogram_data = histogram_csv.slice(1).enumerate().map(((i, row)) => (
+  if calc.rem(i, 5) == 0 { row.at(0) } else { [] }, 
+  int(row.at(1))
+))
+
+#align(center)[
+#cetz-canvas({
+  chart.columnchart(
+    histogram_data,
+    mode: "basic",
+    size: (20, 8),
+    label-key: 0,
+    value-key: 1,
+    x-label: $log_10 ("Prevalencia")$,
+    y-label: [Número de características],
+    bar-style: (fill: blue.lighten(20%)),
+  )
+})
+]
 
 = Interpretabilidad
 
