@@ -237,7 +237,7 @@ Temas abordados en proyecto parte 1:
 ][
   #definition[
     Un transformer consiste#super(sym.ast) en una capa de embeding, una serie
-    de bloques de transformer, y al final un $"Softmax"$
+    de bloques de atención y procesamiento, y una capa de salida que se ajustada a la tarea.
   ]
 ]
 
