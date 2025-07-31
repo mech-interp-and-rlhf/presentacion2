@@ -898,3 +898,16 @@ feel a sense of dread every time I think about the future.\"\n\nThese examples i
 emotional language and subjective expressions, which align with the potential themes detected 
 by neuron #28311
 
+= Desarrollo actual y futuro
+
+== Stack Tecnológico
+
+#slide(composer: (3fr, 4fr))[
+  #align(center)[
+    #image("contributors-github.png", width: 90%)
+  ]
+][
+  #align(center)[
+    #image("network-github.png", width: 90%)
+  ]
+]
