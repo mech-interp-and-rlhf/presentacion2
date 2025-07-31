@@ -451,8 +451,6 @@ una neurona artificial tras procesar su entrada con una función de activación.
 
 - Procesamiento por lotes → activaciones (bfloat16 → uint16).
 
-- Registro de: doc_id, token_id, pos, activación.
-
 - Shards de 50K ejemplos
 
 - RMS global calculado para normalizar activaciones.
