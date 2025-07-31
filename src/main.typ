@@ -27,7 +27,7 @@
     subtitle: [Proyecto de investigación, parte 2],
     author: [Sergio Antonio Hernández Peralta, Juan Emmanuel Cuéllar Lugo, \
       Julia López Diego, Nathael Ramos Cabrera \
-      Asesores: Oscar Yañes Suares, Nuñes Antonio Gabriel],
+      Asesores: Oscar Yañez Suarez, Gabriel Nuñez Antonio ],
     logo: box(image("Logo_de_la_UAM_no_emblema.svg", width: 36pt)),
   ),
   footer-a: [Sergio, Juan, Julia, Nathael],
@@ -226,6 +226,14 @@ Temas abordados en proyecto parte 1:
     )
   ]
 )
+
+== Autoencoder Disperso
+
+- Autoencoder: aprende la función identidad bajo restricciones
+  #pause a consecuencia aprende una codificación y decodificación
+
+- Disperso: La codificación para cualquier entrada es un vector con casi todas
+  sus entradas igual a cero
 
 == Definición
 #slide(composer: (2fr, 5fr))[
@@ -492,15 +500,6 @@ Dado:
 el objetivo es aprender un conjunto sobrecompleto de direcciones en el espacio
 de activaciones, tal que solo se necesiten pocas direciones para reconstruir
 una entrada
-
-== Autoencoder Disperso
-
-- Autoencoder: aprende la función identidad bajo restricciones
-  #pause a consecuencia aprende una codificación y decodificación
-
-- Disperso: La codificación para cualquier entrada es un vector con casi todas
-  sus entradas igual a cero
-
 
 
 = Entrenamiento de Autoencoder
