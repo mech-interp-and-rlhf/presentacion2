@@ -801,7 +801,36 @@ with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
 ]
 
 
-== Loss dim vs prevalencia and histograma prevalencia
+== Dim y prevalencia
+
+#align(center)[
+  #image("scatter_plot.png", width: 63%)
+]
+
+#pagebreak(weak: true)
+
+== Histograma de prevalencia
+
+#let histogram_csv = csv("histogram_data.csv")
+#let histogram_data = histogram_csv.slice(1).enumerate().map(((i, row)) => (
+  if calc.rem(i, 5) == 0 { row.at(0) } else { [] }, 
+  int(row.at(1))
+))
+
+#align(center)[
+#cetz-canvas({
+  chart.columnchart(
+    histogram_data,
+    mode: "basic",
+    size: (20, 8),
+    label-key: 0,
+    value-key: 1,
+    x-label: $log_10 ("Prevalencia")$,
+    y-label: [Número de características],
+    bar-style: (fill: blue.lighten(20%)),
+  )
+})
+]
 
 = Interpretabilidad
 
