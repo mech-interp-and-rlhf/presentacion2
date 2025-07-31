@@ -263,8 +263,9 @@ del modelo.
 
 #pagebreak(weak: true)
 
-- Se siguió el procedimiento documentado en el paper "GemmaScope", pero sobre
-  Llama 3.2 1B:
+- Se siguió el procedimiento documentado en el paper \
+  "Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2",
+  pero sobre Llama 3.2 1B:
 
   - Obteniendo las salidas del perceptrón multicapa intermedio
 
