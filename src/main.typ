@@ -424,7 +424,7 @@ una neurona artificial tras procesar su entrada con una función de activación.
     table.header[*Parámetro*][*Valor*][*Uso en el pipeline*],
 
     [hidden_size],       [**2048**],      [Dimensión de cada activación],
-    [intermediate_size], [8192],          [Ancho del MLP (SwiGLU)],
+    [intermediate_size], [8192],          [Ancho del MLP (SiLU)],
     [num_hidden_layers], [16],            [Profundidad total],
     [num_attention_heads],[32 (8 K-V)], [Concurrencia de atención],
     [torch_dtype],       [**bfloat16**],  [Menor memoria, buen rango],
