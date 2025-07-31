@@ -226,13 +226,6 @@ Temas abordados en proyecto parte 1:
   )
 ]
 
-== Autoencoder Disperso
-
-- Autoencoder: aprende la función identidad bajo restricciones
-  a consecuencia aprende una codificación y decodificación
-
-- Disperso: La codificación para cualquier entrada es un vector con casi todas
-  sus entradas igual a cero
 
 == Definición
 #slide(composer: (2fr, 5fr))[
@@ -249,6 +242,13 @@ Temas abordados en proyecto parte 1:
   ]
 ]
 
+== Autoencoder Disperso
+
+- Autoencoder: aprende la función identidad bajo restricciones
+  a consecuencia aprende una codificación y decodificación
+
+- Disperso: La codificación para cualquier entrada es un vector con casi todas
+  sus entradas igual a cero
 
 == Introducción
 
@@ -285,6 +285,8 @@ Entorno de desarrollo:
 - Jupyter Notebook alojado en GitHub.
 
 - Generación de presentaciones con Typst.
+
+- Hugging Face. 
 
 Cómputo para entrenamiento del modelo:
 
@@ -1002,3 +1004,13 @@ def create_prompt(nid: int, acts_idx: np.ndarray, acts_val: np.ndarray, raw_data
     #image("network-github.png", width: 90%)
   ]
 ]
+
+== Trabajo próximo
+
+- Entrenar con 8 TB de datos
+
+- Usar formato de punto flotante de 8 bits (float8)
+
+- Utilizar múltiples núcleos
+
+- Limpiar y refactorizar el código para optimizarlo y mejorar su legibilidad
