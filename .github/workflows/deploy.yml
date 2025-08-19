@@ -35,29 +35,42 @@ jobs:
         run: pip install -r requirements.txt
 
       #  Verificación de compilación
-      - name: Validar que el archivo Typst compila sin errores
+      - name: Validar que los archivos Typst compilan sin errores
         run: |
-          # Intenta compilar el archivo principal sin generar salida
+          # Intenta compilar los archivos principales sin generar salida
           # Esto asegura que no hay errores de sintaxis o fallos antes de generar archivos reales
           touying compile --root=src --output=/dev/null src/main.typ
+          touying compile --root=src --output=/dev/null src/main-en.typ
 
       - name: Make build dir
         run: mkdir build
 
       - name: Build HTML slides
         run: |
+          # Spanish versions
           touying compile --root=src --output="build/index.html"                                       src/main.typ
           touying compile --root=src --output="build/4-3.html"   --sys-inputs '{"aspect-ratio":"4-3"}' src/main.typ
+          # English versions
+          touying compile --root=src --output="build/en.html"                                          src/main-en.typ
+          touying compile --root=src --output="build/en-4-3.html" --sys-inputs '{"aspect-ratio":"4-3"}' src/main-en.typ
 
       - name: Build PDF slides
         run: |
+          # Spanish versions
           touying compile --root=src --format=pdf --output="build/diapositivas.pdf"                                           src/main.typ
           touying compile --root=src --format=pdf --output="build/diapositivas-4-3.pdf" --sys-inputs '{"aspect-ratio":"4-3"}' src/main.typ
+          # English versions  
+          touying compile --root=src --format=pdf --output="build/slides-en.pdf"                                              src/main-en.typ
+          touying compile --root=src --format=pdf --output="build/slides-en-4-3.pdf"    --sys-inputs '{"aspect-ratio":"4-3"}' src/main-en.typ
 
       - name: Build PDF handouts
         run: |
+          # Spanish versions
           touying compile --root=src --format=pdf --output="build/handout.pdf"     --sys-inputs '{"handout":"true"}'                       src/main.typ
           touying compile --root=src --format=pdf --output="build/handout-4-3.pdf" --sys-inputs '{"handout":"true", "aspect-ratio":"4-3"}' src/main.typ
+          # English versions
+          touying compile --root=src --format=pdf --output="build/handout-en.pdf"     --sys-inputs '{"handout":"true"}'                       src/main-en.typ
+          touying compile --root=src --format=pdf --output="build/handout-en-4-3.pdf" --sys-inputs '{"handout":"true", "aspect-ratio":"4-3"}' src/main-en.typ
 
 
       - name: Upload artifact
