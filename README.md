@@ -26,6 +26,11 @@ dispersos.
 
 Estas diapositivas fueron creadas con [Typst](https://typst.app/)
 
+## English Version
+
+- **Online Presentation**: [English](https://mech-interp-uam.github.io/presentacion2/en.html)
+- **Animated Slides (PDF)**: [English](https://mech-interp-uam.github.io/presentacion2/slides-en.pdf)
+- **Static Handout (PDF)**: [English](https://mech-interp-uam.github.io/presentacion2/handout-en.pdf)
 
 ## Todas las Proporciones
 
@@ -34,14 +39,20 @@ Para proyectores antiguos o dispositivos que se benefician de una proporción pa
 ### Presentación online
 - [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/4-3.html)
 - [Formato 16:9](https://mech-interp-uam.github.io/presentacion2/)
+- [English 4:3](https://mech-interp-uam.github.io/presentacion2/en-4-3.html)
+- [English 16:9](https://mech-interp-uam.github.io/presentacion2/en.html)
 
 ### Diapositivas animadas (PDF)
 - [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/diapositivas-4-3.pdf)
 - [Formato 16:10](https://mech-interp-uam.github.io/presentacion2/diapositivas.pdf)
+- [English 4:3](https://mech-interp-uam.github.io/presentacion2/slides-en-4-3.pdf)
+- [English 16:9](https://mech-interp-uam.github.io/presentacion2/slides-en.pdf)
 
 ### Handout estático (PDF)
 - [Formato 4:3](https://mech-interp-uam.github.io/presentacion2/handout-4-3.pdf)
 - [Formato 16:9](https://mech-interp-uam.github.io/presentacion2/handout.pdf)
+- [English 4:3](https://mech-interp-uam.github.io/presentacion2/handout-en-4-3.pdf)
+- [English 16:9](https://mech-interp-uam.github.io/presentacion2/handout-en.pdf)
 
 
 
